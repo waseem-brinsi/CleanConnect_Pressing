@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "CleanConnect_Pressing",
+    "slug": "CleanConnect_Pressing",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/LogSplash.png",
+      "resizeMode": "native",
+      "backgroundColor": "#5549EF"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "This app needs access to your photo library to upload your profile picture.",
+          "cameraPermission": "This app needs access to your camera to take profile pictures."
+        }
+      ],
+      "expo-font"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "minSdkVersion": 19,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.wassim.brinssi.CleanConnect_Pressing"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
