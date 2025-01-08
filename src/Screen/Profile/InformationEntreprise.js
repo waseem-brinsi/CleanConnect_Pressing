@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text,Image, TextInput,Dimensions, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text,Image, TextInput,Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import HeaderComponent from '../../components/HeaderComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import icons from '../../svg/svgLoader';
