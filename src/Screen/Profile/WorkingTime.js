@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity,Dimensions, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity,Dimensions,Modal, StyleSheet } from 'react-native';
 import HeaderComponent from '../../components/HeaderComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import colors from '../../constants/colors';
 import ConfirmeButton from '../../components/ConfirmeButton';
+import ConfirmationModal from '../../components/ConfirmationModal';
 
 const {width,height} = Dimensions.get('window')
 
-const WorkTimeScreen = () => {
+const WorkTimeScreen = ({navigation}) => {
   const [days, setDays] = useState([
     { name: 'Lundi', checked: false, startTime: '', endTime: '' },
     { name: 'Mardi', checked: false, startTime: '', endTime: '' },
@@ -18,6 +19,9 @@ const WorkTimeScreen = () => {
     { name: 'Samedi', checked: false, startTime: '', endTime: '' },
     { name: 'Dimanche', checked: false, startTime: '', endTime: '' },
   ]);
+
+
+    const [modalVisible, setModalVisible] = useState(false);
 
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
@@ -96,7 +100,27 @@ const WorkTimeScreen = () => {
         />
       )}
 
-       <ConfirmeButton ConfirmeText={"Enregistrer les Horaires"} style={{marginTop:15}}></ConfirmeButton>
+       <ConfirmeButton HandleConfimation={() => setModalVisible(true)} ConfirmeText={"Enregistrer les Horaires"} style={{marginTop:15}}></ConfirmeButton>
+   
+
+
+
+       <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+      <ConfirmationModal 
+      navigation={navigation}
+      title="Modifiction enregistrée"
+      description="Votre mot de passe a été enregistrée avec succés!"
+      buttonText="OK"
+      IconName="Calender"
+      to="Profile"
+      ></ConfirmationModal>
+      </Modal>
+   
     </View>
      </SafeAreaView>
 
@@ -179,68 +203,3 @@ const styles = StyleSheet.create({
 });
 
 export default WorkTimeScreen;
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState } from "react";
-// import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-
-// const CustomCheckbox = () => {
-//   const [isChecked, setIsChecked] = useState(false);
-
-//   const handleToggle = () => {
-//     setIsChecked(!isChecked);
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <TouchableOpacity       style={[
-//           styles.checkbox,
-//           isChecked && {backgroundColor:"#14DA32"}
-//         ]} onPress={handleToggle}>
-//         {isChecked && <Text style={styles.checkIcon}>✔</Text>}
-//       </TouchableOpacity>
-//       <Text style={styles.label}>Custom Checkbox</Text>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     marginTop:500,
-//     marginHorizontal:50
-//   },
-//   checkbox: {
-//     width: 24,
-//     height: 24,
-//     borderWidth: 2,
-//     borderColor: "#8C8C8C",
-//     borderRadius:6,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     alignContent:"center",
-//     marginRight: 8,
-
-//   },
-//   checkIcon: {
-
-//     color: "#fff",
-//     fontSize: 14  ,
-//   },
-//   label: {
-//     fontSize: 16,
-//   },
-// });
-
-// export default CustomCheckbox;
