@@ -8,11 +8,13 @@ import HorizontalLine from '../../components/HorizontalLine';
 
 items = [
   { id: '1',icon: 'UserCircle', title: 'Informations Personnelles',  navigateTo:'InformationAcount'},
-  { id: '2',icon: 'Setting', title: 'Paramétres du compte',  navigateTo:'ProfileSetting'},
-  { id: '3',icon: 'Partnership', title: 'Partenariat',  navigateTo:'Partnership'},
-  { id: '4',icon: 'Policy', title: 'Politique de confidentialité',  navigateTo:'Policy'},
-  { id: '5',icon: 'Help', title: 'Centre d’aide',  navigateTo:'SupportScreen'},
-  { id: '6',icon: 'Logout', title: 'Déconnexion',  navigateTo:'BienvenueScreen'},
+  { id: '2',icon: 'Entreprise', title: 'Informations de l’Entreprise',  navigateTo:'InformationEntreprise'},
+  { id: '3',icon: 'Calender', title: 'Horaires et Jours de Travail',  navigateTo:'WorkingTime'},
+  { id: '4',icon: 'Partnership', title: 'Partenariat',  navigateTo:'Partnership'},
+  { id: '5',icon: 'Setting', title: 'Paramétres du compte',  navigateTo:'ProfileSetting'},
+  { id: '6',icon: 'Policy', title: 'Politique de confidentialité',  navigateTo:'Policy'},
+  { id: '7',icon: 'Help', title: 'Centre d’aide',  navigateTo:'SupportScreen'},
+  { id: '8',icon: 'Logout', title: 'Déconnexion',  navigateTo:'BienvenueScreen'},
 ]
 
 
@@ -78,48 +80,69 @@ const ProfileScreen = ({navigation}) => {
 
         <HorizontalLine  style={{ backgroundColor: colors.background2 }}></HorizontalLine>
     </View>
-
-
     )
-
   };
+
+  
+  const renderSection = ({ item }) => {
+    switch (item.type) {
+      case 'header':
+        return (
+          <View style={styles.section1}>
+        
+          <View style={styles.profileContainer}>
+            <View style={styles.imageContainer}>
+  
+            {profileImage ? (
+                <Image source={{ uri: profileImage }} style={styles.profileImage} />
+              ) : (
+                React.createElement(icons['UserCircle'], { width: 80, height: 80})
+              )}
+  
+              <TouchableOpacity style={styles.editIcon} onPress={handleEditPhoto}>
+                {React.createElement(icons['Pencil'], { width: 25, height: 25})}
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.profileName}>LAUNDRY</Text>
+            <Text style={styles.profilePhone}>+216 234 567 890</Text>
+          </View>
+        </View>
+          
+        );
+
+      case 'section2':
+        return (
+          <View style={styles.section2}>
+
+          <FlatList
+                data={item.data}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+                numColumns={1}
+              />
+          </View>
+          
+        );
+      default:
+        return null;
+    }
+  };
+
+  const sections = [
+    { id: '1', type: 'header' },
+    { id: '2', type: 'section2', data: items},
+  ];
 
 
   return (
     <View style={styles.container}>
       <HeaderComponent title="Mon Profil"   style={{ backgroundColor: colors.background2 }}></HeaderComponent>
-      {/* Section 1 */}
-      <View style={styles.section1}>
-        
-        <View style={styles.profileContainer}>
-          <View style={styles.imageContainer}>
-
-          {profileImage ? (
-              <Image source={{ uri: profileImage }} style={styles.profileImage} />
-            ) : (
-              React.createElement(icons['UserCircle'], { width: 80, height: 80})
-            )}
-
-            <TouchableOpacity style={styles.editIcon} onPress={handleEditPhoto}>
-              {React.createElement(icons['Pencil'], { width: 25, height: 25})}
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.profileName}>Mohamed ben Mohamed</Text>
-          <Text style={styles.profilePhone}>+216 234 567 890</Text>
-        </View>
-      </View>
-
-      {/* Section 2 */}
-      <View style={styles.section2}>
-
-      <FlatList
-            data={items}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-            numColumns={1}
-          />
-        
-      </View>
+    <FlatList
+      data={sections}
+      renderItem={renderSection}
+      keyExtractor={(item) => item.id}
+      // contentContainerStyle={styles.container}
+    />
     </View>
   );
 };
@@ -128,6 +151,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingBottom:100
   },
   section1: {
     backgroundColor: colors.background2,

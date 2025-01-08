@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,Image,Dimensions } from 'react-native';
+import { View, Text, TextInput, Modal,TouchableOpacity, StyleSheet, Alert,Image,Dimensions } from 'react-native';
 import { API_BASE_URL } from  '../../config/config'; 
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import colors from '../../constants/colors';
 import icons from '../../svg/svgLoader';
-import IconGoogle from '../../../assets/iconGoogle.svg';
 import Icon_label from '../../components/Icon_label';
 import HeaderComponent from '../../components/HeaderComponent';
+import ConfirmationModal from '../../components/ConfirmationModal';
+import ConfirmeButton from '../../components/ConfirmeButton';
+import CancelButton from '../../components/CancelButton';
 
 
 const { width,height } = Dimensions.get('window');
 
 
 const ChangePasswordProfile = ({ navigation,route }) => {
-
+  const navigationGoBack = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
   
   const [actuel_password, setActuel_password] = useState('');
 
@@ -36,38 +40,40 @@ const ChangePasswordProfile = ({ navigation,route }) => {
       return;
     }
 
+
+    setModalVisible(true)
     // Handle registration logic here (e.g., call an API)
 
     
-    setLoading(true);
+    // setLoading(true);
 
-    try {
-      const response = await fetch(`${API_BASE_URL}/changePassword`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          // verification_code,
-          // new_password,
-          // new_password_confirmation
-        }),
-      });
+    // try {
+    //   const response = await fetch(`${API_BASE_URL}/changePassword`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       // verification_code,
+    //       // new_password,
+    //       // new_password_confirmation
+    //     }),
+    //   });
 
-      const data = await response.json();
+    //   const data = await response.json();
 
-      if (response.ok) {
-        Alert.alert('Success', 'Registration successful!', [
-          { text: 'OK', onPress: () => navigation.navigate('LoginScreen') },
-        ]);
-      } else {
-        Alert.alert('Error', data.message || 'Something went wrong');
-      }
-    } catch (error) {
-      Alert.alert('Error', 'Network error. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
+    //   if (response.ok) {
+    //     Alert.alert('Success', 'Registration successful!', [
+    //       { text: 'OK', onPress: () => navigation.navigate('LoginScreen') },
+    //     ]);
+    //   } else {
+    //     Alert.alert('Error', data.message || 'Something went wrong');
+    //   }
+    // } catch (error) {
+    //   Alert.alert('Error', 'Network error. Please try again later.');
+    // } finally {
+    //   setLoading(false);
+    // }
 
     
   };
@@ -124,10 +130,10 @@ const ChangePasswordProfile = ({ navigation,route }) => {
 
      </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleChangePassword}>
-        <Text style={styles.buttonText}>S’inscrire</Text>
-      </TouchableOpacity>
 
+      <ConfirmeButton ConfirmeText={"S’inscrire"} HandleConfimation={handleChangePassword} />
+      <CancelButton CancelText={"Annuler"} HandleCancel={() => navigationGoBack.goBack()} />
+      
 
       <View style={styles.connecter}>
         <Text style={styles.dejaText}>Déjà un compte ?</Text>
@@ -135,6 +141,25 @@ const ChangePasswordProfile = ({ navigation,route }) => {
           <Text style={styles.loginText}>Se connecter</Text>
         </TouchableOpacity>
       </View>
+
+
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+      <ConfirmationModal 
+      navigation={navigation}
+      title="Modifiction enregistrée"
+      description="Votre mot de passe a été enregistrée avec succés!"
+      buttonText="OK"
+      IconName="PassModification"
+      to="LoginScreen"
+      ></ConfirmationModal>
+      </Modal>
+
     </View>
     </SafeAreaView>
 

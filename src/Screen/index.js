@@ -47,17 +47,25 @@ export {default as BookmarkDetails } from './Details/articles/BookmarkDetails';
 
 export{default as TestimonialScreen} from './Details/Testimonial/Testimonial_Screen';
 
+//PortfeuilScreen
+export { default as PortfeuilScreen} from './Portfeuil/PortfeuilScreen';
+
 
 
 
 // Profile Screens
 export { default as ProfileScreen} from './Profile/ProfileScreen';
 export { default as InformationAcount } from './Profile/InformationAcount'; 
+export { default as InformationEntreprise } from './Profile/InformationEntreprise';
 export { default as ChangePasswordProfile } from './Profile/ChangePasswordProfile';
 export {default as ProfileSetting} from './Profile/ProfileSetting';
+export {default as WorkingTime} from './Profile/WorkingTime';
 export {default as ChangePhoneNumber} from './Profile/ChangePhoneNumber';
 export {default as Partnership} from './Profile/Partnership';
 export {default as Policy} from './Profile/Policy';
+
+
+
 
 
 

@@ -7,6 +7,7 @@ import {
   HomeScreen,
   HistoryScreen,
   ProfileScreen,
+  PortfeuilScreen,
 } from '../Screen';
 
 
@@ -70,6 +71,15 @@ function TabNavigator() {
           options={{
             tabBarIcon: ({ color, size }) => (
               React.createElement(icons['History'], { width:25 , height: 25 })
+            ),headerShown: false 
+          }}
+        />
+        <Tab.Screen 
+          name="Portfeuil" 
+          component={PortfeuilScreen} 
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              React.createElement(icons['Portfeuil'], { width:25 , height: 25 })
             ),headerShown: false 
           }}
         />

@@ -5,7 +5,7 @@ import colors from '../constants/colors';
 
 const {width,height} = Dimensions.get('window')
 
-const CancelScreen = ({title,description,buttonText,IconName,to,navigation}) => {
+const ConfirmationModal = ({title,description,buttonText,IconName,to,navigation}) => {
 
   const handleCancel = () => {
     navigation.navigate(`${to}`)
@@ -91,4 +91,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default CancelScreen;
+export default ConfirmationModal;

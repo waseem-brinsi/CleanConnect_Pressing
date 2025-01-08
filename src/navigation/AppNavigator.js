@@ -36,9 +36,12 @@ import {
     Thanks,
     ChangePasswordProfile,
     ProfileSetting,
+    InformationEntreprise,
+    WorkingTime,
     ChangePhoneNumber,
     Partnership,
-    Policy} from '../Screen';
+    Policy,
+    PortfeuilScreen} from '../Screen';
 
 
 const Stack = createStackNavigator();
@@ -101,11 +104,19 @@ const AppNavigator = () => {
             <Stack.Screen name="EncoursAttendBoutique" component={EncoursAttendBoutique} options={{ headerShown: false }} />
             <Stack.Screen name="TrackingMap" component={TrackingMap} options={{ headerShown: false }} />
 
+            <Stack.Screen name="Portfeuil" component={PortfeuilScreen} options={{ headerShown: false }} />
+
+
             
             
             
             
             <Stack.Screen name="InformationAcount" component={InformationAcount} options={{ headerShown: false }}/>
+                       
+            <Stack.Screen name="InformationEntreprise" component={InformationEntreprise} options={{ headerShown: false }}/>
+            <Stack.Screen name="WorkingTime" component={WorkingTime} options={{ headerShown: false }}/>
+            
+           
             <Stack.Screen name="ChangePasswordProfile" component={ChangePasswordProfile} options={{ headerShown: false }}/>
             <Stack.Screen name="ProfileSetting" component={ProfileSetting} options={{ headerShown: false }}/>
             <Stack.Screen name="ChangePhoneNumber" component={ChangePhoneNumber} options={{ headerShown: false }}/>

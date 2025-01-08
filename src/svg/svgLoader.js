@@ -25,6 +25,7 @@ import PyjamaIcon from '../../assets/icons/Pyjama.svg';
 import UploadImage from '../../assets/icons/UploadImage';
 import Pen from '../../assets/icons/Pen';
 import Map from '../../assets/icons/map';
+import Map2 from '../../assets/icons/Map2';
 import Search from '../../assets/icons/Search';
 import Cclogo from '../../assets/icons/Cclogo';
 import Notification from '../../assets/icons/notification';
@@ -66,10 +67,20 @@ import Help from '../../assets/icons/Help';
 import Logout from '../../assets/icons/Logout';
 import Conpany from '../../assets/icons/Conpany';
 import EncoursRed from '../../assets/icons/EncoursRed';
+import Portfeuil from '../../assets/icons/Portfeuil';
+import Entreprise from '../../assets/icons/Entreprise';
+import Calender from '../../assets/icons/Calender';
+import PassModification from '../../assets/icons/PassModification';
+
+
 
 
 
 const icons = {
+    PassModification,
+    Calender,
+    Entreprise,
+    Portfeuil,
     EncoursRed,
     Conpany,
     Logout,
@@ -131,6 +142,7 @@ const icons = {
     Pencil,
     Pen,
     Map,
+    Map2,
     Search,
     Cclogo
 };
