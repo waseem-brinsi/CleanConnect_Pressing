@@ -35,31 +35,31 @@ const LoginScreen = ({ navigation }) => {
   
   
       setLoading(true);
-
-      try {
-        const response = await fetch(`${API_BASE_URL}/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ phoneNumber, password }),
-        });
-        console.log(response)
-        const data = await response.json();
-        console.log(data)
+      navigation.navigate('Home')
+      // try {
+      //   const response = await fetch(`${API_BASE_URL}/login`, {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({ phoneNumber, password }),
+      //   });
+      //   console.log(response)
+      //   const data = await response.json();
+      //   console.log(data)
   
-        if (response.ok) {
-          Alert.alert('Login', 'Login successful!', [
-            { text: 'OK', onPress: () => navigation.navigate('Home') },
-          ]);
-        } else {
-          Alert.alert('Error', data.message || 'Something went wrong');
-        }
-      } catch (error) {
-        Alert.alert('Error', 'Network error. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
+      //   if (response.ok) {
+      //     Alert.alert('Login', 'Login successful!', [
+      //       { text: 'OK', onPress: () => navigation.navigate('Home') },
+      //     ]);
+      //   } else {
+      //     Alert.alert('Error', data.message || 'Something went wrong');
+      //   }
+      // } catch (error) {
+      //   Alert.alert('Error', 'Network error. Please try again later.');
+      // } finally {
+      //   setLoading(false);
+      // }
 
   };
 

@@ -20,48 +20,52 @@ const Verification = ({ navigation,route }) => {
       return;
     }
 
-
+    Switch_navigation(navTo)
 
     
-    setLoading(true);
+    // setLoading(true);
 
-    try {
-      console.log("try")
-      const response = await fetch(`${API_BASE_URL}/verify`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          code
-        }),
-      });
+    // try {
+    //   console.log("try")
+    //   const response = await fetch(`${API_BASE_URL}/verify`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       code
+    //     }),
+    //   });
 
-      const data = await response.json();
-      console.log("try2")
-      console.log(data)
+    //   const data = await response.json();
+    //   console.log("try2")
+    //   console.log(data)
 
 
-      if (response.ok) {
-        console.log("try3")
+    //   if (response.ok) {
+    //     console.log("try3")
 
-        Alert.alert('Success', 'Registration successful!', [
-          { text: 'OK', onPress: Switch_navigation(navTo)},
-        ]);
-      } else {
-        Alert.alert('Error', data.message || 'Something went wrong');
-      }
-    } catch (error) {
-      Alert.alert('Error', 'Network error. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
+    //     Alert.alert('Success', 'Registration successful!', [
+    //       { text: 'OK', onPress: Switch_navigation(navTo)},
+    //     ]);
+    //   } else {
+    //     Alert.alert('Error', data.message || 'Something went wrong');
+    //   }
+    // } catch (error) {
+    //   Alert.alert('Error', 'Network error. Please try again later.');
+    // } finally {
+    //   setLoading(false);
+    // }
 
     
   };
+  
   console.log(navTo)
   const Switch_navigation = (navTo) => {
     switch (navTo) {
+      case 'AcountInformation':
+        navigation.navigate('AcountInformation');
+        break;
       case 'LoginScreen':
         navigation.navigate('LoginScreen');
         break;

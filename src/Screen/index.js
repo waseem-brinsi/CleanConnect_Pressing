@@ -2,6 +2,11 @@
 // Auth Screens
 export {default as LoginScreen } from './Auth/LoginScreen';
 export {default as SignupScreen} from './Auth/SignupScreen';
+export {default as AcountInformation } from './Auth/AcountInformation';
+export {default as EntrepriseInformation } from './Auth/EntrepriseInformation';
+
+
+
 export {default as Verification} from './Auth/Verification';
 export {default as VerificationChangePassword} from './Auth/VerificationChangePassword';
 
@@ -17,6 +22,9 @@ export {default as Thanks } from './Auth/Thanks';
 
 
 
+
+
+
 // Auth Details
 export {default as ClothesDetailScreen } from './Details/Clothes/ClothesDetailScreen';
 export {default as ClothesConfirmationScreen } from './Details/Clothes/ClothesConfirmationScreen';
@@ -24,6 +32,7 @@ export {default as InformationScreen } from './Details/Clothes/InformationScreen
 export {default as LocalizationScreen } from './Details/Clothes/LocalizationScreen';
 export {default as InfoPaymentScreen } from './Details/Clothes/InfoPaymentScreen';
 export {default as CommandeAnnulee } from './Details/Clothes/Commande_annulee';
+
 
 
 // Store
@@ -82,10 +91,6 @@ export { default as HomeScreen } from './Home/HomeScreen';
 
 
 // Welcome Screens
-export { default as WelcomeScreen } from './Welcome/WelcomeScreen';
-export { default as WelcomeScreen2 } from './Welcome/WelcomeScreen_2';
-export { default as WelcomeScreen3 } from './Welcome/WelcomeScreen_3';
-export { default as commencer } from './Welcome/commencer';
 export { default as BienvenueScreen } from './Welcome/BienvenueScreen';
 
 

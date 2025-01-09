@@ -3,15 +3,11 @@ import TShirtsIcon from '../../assets/icons/T-Shirts.svg';
 import ChemiseIcon from '../../assets/icons/Chemise.svg';
 import PullIcon from '../../assets/icons/Pull.svg';
 import BlousonIcon from '../../assets/icons/Blouson.svg';
-
-
 import JeanIcon from '../../assets/icons/Jean.svg';
 import ShortIcon from '../../assets/icons/Short.svg';
 import PantalonIcon from '../../assets/icons/Pantalon.svg';
 import JupeIcon from '../../assets/icons/Jupe.svg';
 import RobeIcon from '../../assets/icons/Robe.svg';
-
-
 import Maillot_bainIcon from '../../assets/icons/Maillot de bain.svg';
 import EcharpeIcon from '../../assets/icons/Echarpe.svg';
 import GantsIcon from '../../assets/icons/Gants.svg';
@@ -59,7 +55,6 @@ import Email from '../../assets/icons/Email';
 import MessageSend from '../../assets/icons/MessageSend';
 import UserCircle from '../../assets/icons/UserCircle';
 import Pencil from '../../assets/icons/Pencil';
-
 import Setting from '../../assets/icons/Setting';
 import Partnership from '../../assets/icons/Partnership';
 import Policy from '../../assets/icons/Policy';
@@ -69,17 +64,29 @@ import Conpany from '../../assets/icons/Conpany';
 import EncoursRed from '../../assets/icons/EncoursRed';
 import Portfeuil from '../../assets/icons/Portfeuil';
 import Entreprise from '../../assets/icons/Entreprise';
+import Entreprise2 from '../../assets/icons/Entreprise2';
 import Calender from '../../assets/icons/Calender';
 import PassModification from '../../assets/icons/PassModification';
+import Pressing from '../../assets/icons/Pressing';
+import percent1 from '../../assets/icons/percent1';
+import percent2 from '../../assets/icons/percent2';
+import camera from '../../assets/icons/camera';
+import FileUpload from '../../assets/icons/FileUpload';
 
 
 
 
 
 const icons = {
+    FileUpload,
+    camera,
+    percent2,
+    percent1,
+    Pressing,
     PassModification,
     Calender,
     Entreprise,
+    Entreprise2,
     Portfeuil,
     EncoursRed,
     Conpany,

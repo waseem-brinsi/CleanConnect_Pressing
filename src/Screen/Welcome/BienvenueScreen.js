@@ -20,7 +20,15 @@ const BienvenueScreen = ({ navigation }) => {
       {React.createElement(icons['Logo'],{width:90 ,height:60 , marginBottom:20})}
 
       <Text style={styles.TitleText}>Bienvenue sur</Text>
-      <Text style={[styles.TitleText,{fontSize: 32,}]}>CleanConnect_Pressing</Text>
+
+      <Text style={[styles.TitleText,{fontSize: 32,}]}>CleanConnect Pressing</Text>
+      {/* <Text style={[styles.TitleText,{fontSize: 24,}]}></Text> */}
+
+      <View style={styles.Pressing}>
+           {React.createElement(icons['Pressing'],{width:90 ,height:70})}
+      </View>
+
+  
 
       <Text style={styles.description}>
       Connectez-vous pour accéder à vos services de nettoyage ou créez un compte pour commencer.
@@ -77,13 +85,16 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       // backgroundColor: "#fff",
     },
-    TitleText: {
+  TitleText: {
       fontSize: 24,
       color:"#fff",
       textAlign: 'center',
       fontWeight: 'bold',
     },
-    description: {
+  Pressing: {
+    marginTop:20
+    },
+  description: {
       fontSize: 14,
       color:"#fff",
       fontWeight: 'regular',

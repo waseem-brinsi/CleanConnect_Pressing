@@ -37,31 +37,31 @@ const ForgotPassword = ({ navigation }) => {
   
   
       setLoading(true);
-
-      try {
-        const response = await fetch(`${API_BASE_URL}/forgotPassword`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({phoneNumber}),
-        });
-        console.log(response)
-        const data = await response.json();
-        console.log(data)
+      navigation.navigate("VerificationChangePassword",{phoneNumber:phoneNumber})
+      // try {
+      //   const response = await fetch(`${API_BASE_URL}/forgotPassword`, {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({phoneNumber}),
+      //   });
+      //   console.log(response)
+      //   const data = await response.json();
+      //   console.log(data)
   
-        if (response.ok) {
-          Alert.alert('Login', 'Login successful!', [
-            { text: 'OK', onPress: ()=>navigation.navigate("VerificationChangePassword",{phoneNumber:phoneNumber}) },
-          ]);
-        } else {
-          Alert.alert('Error', data.message || 'Something went wrong');
-        }
-      } catch (error) {
-        Alert.alert('Error', 'Network error. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
+      //   if (response.ok) {
+      //     Alert.alert('Login', 'Login successful!', [
+      //       { text: 'OK', onPress: ()=>navigation.navigate("VerificationChangePassword",{phoneNumber:phoneNumber}) },
+      //     ]);
+      //   } else {
+      //     Alert.alert('Error', data.message || 'Something went wrong');
+      //   }
+      // } catch (error) {
+      //   Alert.alert('Error', 'Network error. Please try again later.');
+      // } finally {
+      //   setLoading(false);
+      // }
   };
 
 

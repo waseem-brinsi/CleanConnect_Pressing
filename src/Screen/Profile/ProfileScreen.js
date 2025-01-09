@@ -19,6 +19,8 @@ items = [
 
 
 const ProfileScreen = ({navigation}) => {
+
+
   const [ profileImage, setProfileImage] = useState('');
 
   const handleEditPhoto = async () => {
@@ -175,7 +177,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: -4,
     right: -4,
- 
     borderRadius: 15,
     padding: 4,
   },

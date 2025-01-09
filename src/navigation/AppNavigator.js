@@ -3,7 +3,6 @@ import TabNavigator from './TabNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import {
-    WelcomeScreen ,WelcomeScreen2,WelcomeScreen3,commencer, 
     LoginScreen,SignupScreen, 
     ClothesDetailScreen, 
     ProfileScreen,
@@ -41,23 +40,27 @@ import {
     ChangePhoneNumber,
     Partnership,
     Policy,
-    PortfeuilScreen} from '../Screen';
+    PortfeuilScreen,
+    AcountInformation,
+    EntrepriseInformation} from '../Screen';
+
+
 
 
 const Stack = createStackNavigator();
 const AppNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName="Welcome">
-            <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Welcome2" component={WelcomeScreen2} options={{ headerShown: false }} />
-            <Stack.Screen name="Welcome3" component={WelcomeScreen3} options={{ headerShown: false }} />
-            <Stack.Screen name="Commencer" component={commencer} options={{ headerShown: false }} />
+        <Stack.Navigator initialRouteName="BienvenueScreen">
             <Stack.Screen name="BienvenueScreen" component={BienvenueScreen} options={{ headerShown: false }} />
 
             
         
             <Stack.Screen name="LoginScreen" component={LoginScreen}   options={{ headerShown: false }}/>
             <Stack.Screen name="SignupScreen" component={SignupScreen}  options={{ headerShown: false }} />
+            <Stack.Screen name="AcountInformation" component={AcountInformation}  options={{ headerShown: false }} />
+            <Stack.Screen name="EntrepriseInformation" component={EntrepriseInformation}  options={{ headerShown: false }} />
+
+            
             <Stack.Screen name="Verification" component={Verification}  options={{ headerShown: false }} />
             <Stack.Screen name="VerificationChangePassword" component={VerificationChangePassword}  options={{ headerShown: false }} />
             <Stack.Screen name="SupportScreen" component={SupportScreen}  options={{ headerShown: false }} />

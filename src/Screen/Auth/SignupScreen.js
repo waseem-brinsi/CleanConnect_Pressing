@@ -1,170 +1,111 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,Image,Dimensions } from 'react-native';
-import { API_BASE_URL } from  '../../config/config'; 
+import { View, Text, TextInput, Dimensions, TouchableOpacity,Image, StyleSheet, Alert } from 'react-native';
+import { API_BASE_URL } from '../../config/config'; 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import colors from '../../constants/colors';
 import icons from '../../svg/svgLoader';
-import IconGoogle from '../../../assets/iconGoogle.svg';
+import IconGoogle from '../../../assets/iconGoogle.svg'
 import Icon_label from '../../components/Icon_label';
 
 
 const { width,height } = Dimensions.get('window');
 
-
 const SignupScreen = ({ navigation }) => {
-  const [name, setName] = useState('');
+  
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [loading, setLoading] = useState(false);
 
-  const [password, setPassword] = useState('');
-  const [password_confirmation, setConfirmPassword] = useState('');
-
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [loading, setLoading] = useState(false);
-
-
-
-
-  const isValidPhoneNumber = (phoneNumber) => {
-    // Regular expression to check if phone number is valid (digits only)
-    const regex = /^\d+$/;
-    return regex.test(phoneNumber);
-  };
-
-  const handleRegister = async () => {
-    if (!name || !phoneNumber || !password || !password_confirmation ) {
-      Alert.alert('Error', 'Please fill in all fields');
-      return;
-    }
-
-
-
-    if (!isValidPhoneNumber(phoneNumber)) {
-      Alert.alert('Error', 'Phone number must be digits only');
-      return;
-    }
-
-    if (password !== password_confirmation) {
-      Alert.alert('Error', 'Passwords do not match');
-      return;
-    }
-
-    // Handle registration logic here (e.g., call an API)
-
-    
-    setLoading(true);
-
-    try {
-      console.log("try")
-      const response = await fetch(`${API_BASE_URL}/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          password,
-          password_confirmation,
-          phoneNumber
-        }),
-      });
-
-      const data = await response.json();
-      console.log("try2")
-      console.log(data)
-
-
-      if (response.ok) {
-        console.log("try3")
-
-        Alert.alert('Success', 'Registration successful!', [
-          { text: 'OK', onPress: () => navigation.navigate('Verification') },
-        ]);
-      } else {
-        Alert.alert('Error', data.message || 'Something went wrong');
+    const isValidPhoneNumber = (phoneNumber) => {
+      // Regular expression to check if phone number is valid (digits only)
+      const regex = /^\d+$/;
+      return regex.test(phoneNumber);
+    };
+  
+    const handleLogin = async () => {
+      if (!phoneNumber) {
+        Alert.alert('Error', 'Please enter both Phone');
+        return;
       }
-    } catch (error) {
-      Alert.alert('Error', 'Network error. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
 
-    
+      if (!isValidPhoneNumber(phoneNumber)) {
+        Alert.alert('Error', 'Phone number must be digits only');
+        return;
+      }
+  
+      navigation.navigate('Verification',{navTo:'AcountInformation'})
+
+  
+      // setLoading(true);
+      // try {
+      //   const response = await fetch(`${API_BASE_URL}/login`, {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({ phoneNumber, password }),
+      //   });
+      //   console.log(response)
+      //   const data = await response.json();
+      //   console.log(data)
+  
+      //   if (response.ok) {
+      //     Alert.alert('Login', 'Login successful!', [
+      //       { text: 'OK', onPress: () => navigation.navigate('Home') },
+      //     ]);
+      //   } else {
+      //     Alert.alert('Error', data.message || 'Something went wrong');
+      //   }
+      // } catch (error) {
+      //   Alert.alert('Error', 'Network error. Please try again later.');
+      // } finally {
+      //   setLoading(false);
+      // }
+
   };
 
   return (
-<SafeAreaView style={styles.safeArea}>
-        <View style={styles.BigLogo}>
-          {React.createElement(icons['BigLogo1'])}
-        </View>
-  
+
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.BigLogo}>
+        {React.createElement(icons['BigLogo1'])}
+      </View>
+    
+
         <View style={styles.container}>
         <View style={styles.topContainer}>
-          <Text style={styles.title}>Créer un Compte</Text>
-          <Text style={styles.subtitle}>Rejoignez-nous dès aujourd'hui ! C'est simple et rapide.</Text>
+          <Text style={styles.title}>Informations Personnelles</Text>
+          <Text style={styles.subtitle}>Suivant : Informations de l’entreprise</Text>
         </View>
-        
+   
+        <Icon_label icon={"Phone"} title={"Nom et Prénom"} />
 
-      <View style={styles.inputContainer}>
-        <Icon_label icon={"User"} title={"Nom et Prénom"} />
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        value={name}
-        onChangeText={setName}
-        autoCapitalize="none"
-      />
+        <View style={styles.PhoneNumberRow}>
 
-      <Icon_label icon={"Phone"} title={"Numéro de Téléphone"} />
-      <View style={styles.PhoneNumberRow}>
           <View style={styles.PhoneNumber}>
-                <Image source={require('../../../assets/TN.png')} style={styles.Image} />
-                <Text style={styles.text}>+216</Text>
-              </View>
+            <Image source={require('../../../assets/TN.png')} style={styles.Image} />
+            <Text style={styles.text}>+216</Text>
+          </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Phone Number"
-        value={phoneNumber}
-        onChangeText={(text) => {
-          if (/^\d{0,8}$/.test(text)) {
-            setPhoneNumber(text);
-          }
-        }}
-        keyboardType="phone-pad"
-        maxLength={8}
-        autoCapitalize="none"
-      />
-      </View>
+            <TextInput
+            style={styles.input}
+            placeholder="Phone Number"
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+            keyboardType="phone-pad"
+            autoCapitalize="none"
+          />
 
-      <Icon_label icon={"Lock"} title={"Mot de Passe"} />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        autoCapitalize="none"
-      />
+        </View>
 
 
-      <Icon_label icon={"Lock"} title={"Confirmer le Mot de Passe"} />
-      <TextInput
-        style={styles.input}
-        placeholder="Confirm Password"
-        value={password_confirmation}
-        onChangeText={setConfirmPassword}
-        secureTextEntry
-        autoCapitalize="none"
-      />
+
+          <TouchableOpacity style={styles.button} onPress={handleLogin}>
+            <Text style={styles.buttonText}>Se connecter</Text>
+          </TouchableOpacity>
 
 
-     </View>
 
-      <TouchableOpacity style={styles.button} onPress={ handleRegister}>
-        <Text style={styles.buttonText}>S’inscrire</Text>
-      </TouchableOpacity>
-
-      
-      <View style={styles.containerLine}>
+          <View style={styles.containerLine}>
         <View style={styles.line} />
         <Text style={styles.textLine}>Ou</Text>
         <View style={styles.line} />
@@ -177,17 +118,20 @@ const SignupScreen = ({ navigation }) => {
             <IconGoogle width={24} height={24} />
 
           </View>
-          <Text style={styles.socialButtonText}>inscrivez-vous avec Google</Text>
+          <Text style={styles.socialButtonText}>Connectez-vous avec Google</Text>
         </TouchableOpacity>
     </View>
 
       <View style={styles.connecter}>
-        <Text style={styles.dejaText}>Déjà un compte ?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
-          <Text style={styles.loginText}>Se connecter</Text>
+        <Text style={styles.dejaText}>Pas encore de compte ?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('SignupScreen')}>
+          <Text style={styles.loginText}>S'inscrire</Text>
         </TouchableOpacity>
       </View>
-    </View>
+
+        </View>
+
+   
     </SafeAreaView>
 
   );
@@ -226,13 +170,7 @@ const styles = StyleSheet.create({
     color:'grey',
     fontWeight: 'regular',
   },
-
-
-  inputContainer: {
-    // backgroundColor: "rgba(243, 251, 255, 1)",
-    // // backgroundColor:"green",
-  },
-
+  
 
   PhoneNumberRow: {
     flexDirection:"row",
@@ -257,7 +195,6 @@ const styles = StyleSheet.create({
     width:21,
     height:15
   },
-
   input: {
     width: '100%',
     height: 50,
@@ -267,16 +204,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     paddingHorizontal: 10,
     backgroundColor: '#fff',
-    
   },
-  RoleContainer:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft:30,
-    paddingRight:30
-  },
-
-
   button: {
     backgroundColor: colors.primary,
     padding: 15,
@@ -291,9 +219,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  registerText: {
+    fontSize: 12,
+    fontWeight:"regular",
+    color: colors.primary,
+    textDecorationLine: 'underline',
+  },
 
-
-
+  
   containerLine: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -318,7 +251,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff', // Google blue
     padding: 15,
     borderWidth:1,
-    borderColor:colors.background,
+    borderColor: colors.background,
     borderRadius: 30,
     width: '100%',
     alignItems: 'center',
