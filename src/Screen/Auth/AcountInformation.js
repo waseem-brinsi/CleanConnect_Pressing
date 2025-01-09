@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,Image,Dimensions } from 'react-native';
+import { View, Text, TextInput, ScrollView,TouchableOpacity, StyleSheet, Alert,Image,Dimensions } from 'react-native';
 import { API_BASE_URL } from  '../../config/config'; 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -93,11 +93,9 @@ const AcountInformation = ({ navigation }) => {
 
   return (
 <SafeAreaView style={styles.safeArea}>
-        <View style={styles.BigLogo}>
-          {React.createElement(icons['BigLogo1'])}
-        </View>
+
   
-        <View style={styles.container}>
+
         <View style={styles.topContainer}>
 
           {React.createElement(icons['percent1'],{width:58 ,height:58})}
@@ -107,81 +105,87 @@ const AcountInformation = ({ navigation }) => {
             </View>
 
         </View>
+        <ScrollView>
+
+        <View style={styles.container}>
         
 
-      <View style={styles.inputContainer}>
-        <Icon_label icon={"User"} title={"Nom et Prénom"} />
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        value={name}
-        onChangeText={setName}
-        autoCapitalize="none"
-      />
-
-      <Icon_label icon={"Phone"} title={"Numéro de Téléphone"} />
-      <View style={styles.PhoneNumberRow}>
-          <View style={styles.PhoneNumber}>
-                <Image source={require('../../../assets/TN.png')} style={styles.Image} />
-                <Text style={styles.text}>+216</Text>
-              </View>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Phone Number"
-        value={phoneNumber}
-        onChangeText={(text) => {
-          if (/^\d{0,8}$/.test(text)) {
-            setPhoneNumber(text);
-          }
-        }}
-        keyboardType="phone-pad"
-        maxLength={8}
-        autoCapitalize="none"
-      />
+        <View style={styles.inputContainer}>
+          <Icon_label icon={"User"} title={"Nom et Prénom"} />
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          value={name}
+          onChangeText={setName}
+          autoCapitalize="none"
+        />
+  
+        <Icon_label icon={"Phone"} title={"Numéro de Téléphone"} />
+        <View style={styles.PhoneNumberRow}>
+            <View style={styles.PhoneNumber}>
+                  <Image source={require('../../../assets/TN.png')} style={styles.Image} />
+                  <Text style={styles.text}>+216</Text>
+                </View>
+  
+        <TextInput
+          style={styles.input}
+          placeholder="Phone Number"
+          value={phoneNumber}
+          onChangeText={(text) => {
+            if (/^\d{0,8}$/.test(text)) {
+              setPhoneNumber(text);
+            }
+          }}
+          keyboardType="phone-pad"
+          maxLength={8}
+          autoCapitalize="none"
+        />
+        </View>
+  
+        <Icon_label icon={"Email"} title={"Email"} />
+          <TextInput
+              style={styles.input}
+              placeholder="Email"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+          />
+  
+        <Icon_label icon={"Lock"} title={"Mot de Passe"} />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          autoCapitalize="none"
+        />
+  
+  
+        <Icon_label icon={"Lock"} title={"Confirmer le Mot de Passe"} />
+        <TextInput
+          style={styles.input}
+          placeholder="Confirm Password"
+          value={password_confirmation}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+          autoCapitalize="none"
+        />
+  
+  
+       </View>
+  
+  
+      <View style={[{flexDirection:"row",justifyContent:"space-between", marginTop:30}]}>
+          <CancelButton HandleCancel={()=> navigationGoBack.goBack()} style={{width:width*0.4}} CancelText={'Retour'} ></CancelButton>
+          <ConfirmeButton style={{width:width*0.4}} ConfirmeText={'S’inscrire'} HandleConfimation={handleRegister}></ConfirmeButton>
+      </View>
+  
+  
       </View>
 
-      <Icon_label icon={"Email"} title={"Email"} />
-        <TextInput
-            style={styles.input}
-            placeholder="Email"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-        />
+        </ScrollView>
 
-      <Icon_label icon={"Lock"} title={"Mot de Passe"} />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        autoCapitalize="none"
-      />
-
-
-      <Icon_label icon={"Lock"} title={"Confirmer le Mot de Passe"} />
-      <TextInput
-        style={styles.input}
-        placeholder="Confirm Password"
-        value={password_confirmation}
-        onChangeText={setConfirmPassword}
-        secureTextEntry
-        autoCapitalize="none"
-      />
-
-
-     </View>
-
-
-    <View style={[{flexDirection:"row",justifyContent:"space-between", marginTop:30}]}>
-        <CancelButton HandleCancel={()=> navigationGoBack.goBack()} style={{width:width*0.4}} CancelText={'Retour'} ></CancelButton>
-        <ConfirmeButton style={{width:width*0.4}} ConfirmeText={'S’inscrire'} HandleConfimation={handleRegister}></ConfirmeButton>
-    </View>
-
-
-    </View>
     </SafeAreaView>
 
   );
@@ -195,26 +199,20 @@ const styles = StyleSheet.create({
     position:'relative',
     backgroundColor: colors.white,
   },
-  BigLogo: {
-    position:'absolute',
-    // top:-100,
-    // left:-100,
-  },
-  container: {
-    
-    justifyContent: 'center',
-    // alignItems: 'center',
-    padding: 20,  
-  },
-  topContainer:{
-    flexDirection:"row",
-    justifyContent:"space-between",
-    alignContent:"center",
-    alignItems:"center",
-    paddingVertical:20
-    // backgroundColor:"#F7F6FF"
-
-  },
+    container: {
+      justifyContent: 'center',
+      // alignItems: 'center',
+      padding: 20,  
+      marginBottom:50
+    },
+    topContainer:{
+      flexDirection:"row",
+      justifyContent:"space-between",
+      alignContent:"center",
+      alignItems:"center",
+      padding:20,
+      backgroundColor:colors.background2
+    },
   title: {
     fontSize: 18,
     fontWeight: 'bold',

@@ -42,7 +42,8 @@ import {
     Policy,
     PortfeuilScreen,
     AcountInformation,
-    EntrepriseInformation} from '../Screen';
+    EntrepriseInformation,
+    EntrepriseWorkingTime} from '../Screen';
 
 
 
@@ -57,8 +58,9 @@ const AppNavigator = () => {
         
             <Stack.Screen name="LoginScreen" component={LoginScreen}   options={{ headerShown: false }}/>
             <Stack.Screen name="SignupScreen" component={SignupScreen}  options={{ headerShown: false }} />
-            <Stack.Screen name="AcountInformation" component={AcountInformation}  options={{ headerShown: false }} />
-            <Stack.Screen name="EntrepriseInformation" component={EntrepriseInformation}  options={{ headerShown: false }} />
+            <Stack.Screen name="AcountInformation" component={AcountInformation}  options={{ headerShown: false, animationEnabled:false }} />
+            <Stack.Screen name="EntrepriseInformation" component={EntrepriseInformation}  options={{ headerShown: false,animationEnabled:false}} />
+            <Stack.Screen name="EntrepriseWorkingTime" component={EntrepriseWorkingTime}  options={{ headerShown: false,animationEnabled:false}} />
 
             
             <Stack.Screen name="Verification" component={Verification}  options={{ headerShown: false }} />

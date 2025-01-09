@@ -70,6 +70,7 @@ import PassModification from '../../assets/icons/PassModification';
 import Pressing from '../../assets/icons/Pressing';
 import percent1 from '../../assets/icons/percent1';
 import percent2 from '../../assets/icons/percent2';
+import percent3 from '../../assets/icons/percent3';
 import camera from '../../assets/icons/camera';
 import FileUpload from '../../assets/icons/FileUpload';
 
@@ -80,6 +81,7 @@ import FileUpload from '../../assets/icons/FileUpload';
 const icons = {
     FileUpload,
     camera,
+    percent3,
     percent2,
     percent1,
     Pressing,

@@ -9,6 +9,7 @@ import icons from '../../svg/svgLoader';
 import CancelButton from '../../components/CancelButton';
 import ConfirmeButton from '../../components/ConfirmeButton';
 import Icon_label from '../../components/Icon_label';
+import * as DocumentPicker from 'expo-document-picker';
 
 
 const { width,height } = Dimensions.get('window');
@@ -23,10 +24,28 @@ const EntrepriseInformation = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
+  const [ profileImage, setProfileImage] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileUpload = async () => {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        type: 'application/pdf', // Ensure this matches your need
+        copyToCacheDirectory: true, // Cache the file if needed
+      });
+      
+      if (!result.canceled) {
+        setSelectedFile(result.assets[0]); // Set the first asset in the assets array
+      } else {
+        setSelectedFile(null); // Reset if canceled
+      }
+    } catch (error) {
+      console.error('File upload error:', error);
+      setSelectedFile(null); // Reset on error
+    }
+  };
 
 
-    const [ profileImage, setProfileImage] = useState('');
-  
     const handleEditPhoto = async () => {
       const options = ['Take Photo', 'Choose from Library', 'Cancel'];
       const cancelButtonIndex = 2;
@@ -81,7 +100,7 @@ const EntrepriseInformation = ({ navigation }) => {
   };
 
   const handleRegister = async () => {
-    if (!name || !phoneNumber || !password || !password_confirmation ) {
+    if (!name || !phoneNumber  ) {
       Alert.alert('Error', 'Please fill in all fields');
       return;
     }
@@ -91,15 +110,13 @@ const EntrepriseInformation = ({ navigation }) => {
       return;
     }
 
-    if (password !== password_confirmation) {
-      Alert.alert('Error', 'Passwords do not match');
-      return;
-    }
+
 
     // Handle registration logic here (e.g., call an API)
 
     
     setLoading(true);
+    navigation.navigate('EntrepriseWorkingTime')
 
     // try {
     //   console.log("try")
@@ -141,12 +158,8 @@ const EntrepriseInformation = ({ navigation }) => {
 
   return (
 <SafeAreaView style={styles.safeArea}>
-    <ScrollView>
-        <View style={styles.BigLogo}>
-          {React.createElement(icons['BigLogo1'])}
-        </View>
   
-        <View style={styles.container}>
+
         <View style={styles.topContainer}>
 
           {React.createElement(icons['percent2'],{width:58 ,height:58})}
@@ -156,6 +169,9 @@ const EntrepriseInformation = ({ navigation }) => {
             </View>
 
         </View>
+        <ScrollView>
+        <View style={styles.container}>
+
 
         <View style={styles.section1}>
             
@@ -237,8 +253,20 @@ const EntrepriseInformation = ({ navigation }) => {
         />
     
     <Icon_label icon={"FileUpload"} title={"Patente de l’entreprise"} />
+    <View style={[{justifyContent:"center"}]}>
+        <CancelButton HandleCancel={handleFileUpload}  CancelText={'Importer  ▲'} ></CancelButton>
+    </View>
 
-    <CancelButton style={{width:width*0.4}} CancelText={'Importer'} ></CancelButton>
+       {selectedFile && (
+        <View style={styles.fileInfo}>
+          <Text style={{color:colors.primary}}>File Name: {selectedFile.name}</Text>
+          <Text style={{color:colors.primary}}>File Size: {selectedFile.size} bytes</Text>
+        </View>
+      )}
+
+
+
+
 
      </View>
 
@@ -266,24 +294,19 @@ const styles = StyleSheet.create({
     position:'relative',
     backgroundColor: colors.white,
   },
-  BigLogo: {
-    position:'absolute',
-    // top:-100,
-    // left:-100,
-  },
   container: {
     justifyContent: 'center',
     // alignItems: 'center',
     padding: 20,  
+    marginBottom:50
   },
   topContainer:{
     flexDirection:"row",
     justifyContent:"space-between",
     alignContent:"center",
     alignItems:"center",
-    paddingVertical:20
-    // backgroundColor:"#F7F6FF"
-
+    padding:20,
+    backgroundColor:colors.background2
   },
   title: {
     fontSize: 18,
@@ -365,7 +388,12 @@ const styles = StyleSheet.create({
     paddingLeft:30,
     paddingRight:30
   },
-
+  fileInfo:{
+    flexDirection:"row",
+    justifyContent:"space-between",
+    padding:10,
+    
+  }
 
 });
 
