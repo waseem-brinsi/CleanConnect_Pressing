@@ -43,7 +43,8 @@ import {
     PortfeuilScreen,
     AcountInformation,
     EntrepriseInformation,
-    EntrepriseWorkingTime} from '../Screen';
+    EntrepriseWorkingTime,
+    BankInformation} from '../Screen';
 
 
 
@@ -52,8 +53,7 @@ const Stack = createStackNavigator();
 const AppNavigator = () => {
     return (
         <Stack.Navigator initialRouteName="BienvenueScreen">
-            <Stack.Screen name="BienvenueScreen" component={BienvenueScreen} options={{ headerShown: false }} />
-
+            <Stack.Screen name="BienvenueScreen" component={BienvenueScreen} options={{ headerShown: false }}/>
             
         
             <Stack.Screen name="LoginScreen" component={LoginScreen}   options={{ headerShown: false }}/>
@@ -61,7 +61,9 @@ const AppNavigator = () => {
             <Stack.Screen name="AcountInformation" component={AcountInformation}  options={{ headerShown: false, animationEnabled:false }} />
             <Stack.Screen name="EntrepriseInformation" component={EntrepriseInformation}  options={{ headerShown: false,animationEnabled:false}} />
             <Stack.Screen name="EntrepriseWorkingTime" component={EntrepriseWorkingTime}  options={{ headerShown: false,animationEnabled:false}} />
+            <Stack.Screen name="BankInformation" component={BankInformation}  options={{ headerShown: false,animationEnabled:false}} />
 
+            
             
             <Stack.Screen name="Verification" component={Verification}  options={{ headerShown: false }} />
             <Stack.Screen name="VerificationChangePassword" component={VerificationChangePassword}  options={{ headerShown: false }} />

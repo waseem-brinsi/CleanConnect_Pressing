@@ -71,16 +71,24 @@ import Pressing from '../../assets/icons/Pressing';
 import percent1 from '../../assets/icons/percent1';
 import percent2 from '../../assets/icons/percent2';
 import percent3 from '../../assets/icons/percent3';
+import percent4 from '../../assets/icons/percent4';
 import camera from '../../assets/icons/camera';
 import FileUpload from '../../assets/icons/FileUpload';
+import Bank from '../../assets/icons/Bank';
+import Rib from '../../assets/icons/Rib';
+import File from '../../assets/icons/File';
 
 
 
 
 
 const icons = {
+    File,
+    Rib,
+    Bank,
     FileUpload,
     camera,
+    percent4,
     percent3,
     percent2,
     percent1,

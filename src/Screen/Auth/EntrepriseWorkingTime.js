@@ -73,7 +73,8 @@ const EntrepriseWorkingTime = ({ navigation }) => {
 
 
     // Handle registration logic here (e.g., call an API)
-
+    navigation.navigate('BankInformation')
+    
     setLoading(true);
 
     // try {
@@ -181,7 +182,6 @@ const EntrepriseWorkingTime = ({ navigation }) => {
 
     <View style={[{flexDirection:"row",justifyContent:"space-between", marginTop:30}]}>
         <CancelButton HandleCancel={()=> navigationGoBack.goBack()} style={{width:width*0.4}} CancelText={'Retour'} ></CancelButton>
-        {/* <ConfirmeButton style={{width:width*0.4}} ConfirmeText={'S’inscrire'} HandleConfimation={handleRegister}></ConfirmeButton> */}
         <ConfirmeButton style={{width:width*0.4}} HandleConfimation={handleRegister} ConfirmeText={"S’inscrire"} ></ConfirmeButton>
    
     </View>

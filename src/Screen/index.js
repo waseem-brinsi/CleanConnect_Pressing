@@ -5,6 +5,9 @@ export {default as SignupScreen} from './Auth/SignupScreen';
 export {default as AcountInformation } from './Auth/AcountInformation';
 export {default as EntrepriseInformation } from './Auth/EntrepriseInformation';
 export {default as EntrepriseWorkingTime } from './Auth/EntrepriseWorkingTime';
+export {default as BankInformation } from './Auth/BankInformation';
+
+
 
 
 
