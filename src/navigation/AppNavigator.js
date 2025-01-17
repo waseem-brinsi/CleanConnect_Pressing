@@ -47,8 +47,6 @@ import {
     BankInformation} from '../Screen';
 
 
-
-
 const Stack = createStackNavigator();
 const AppNavigator = () => {
     return (
@@ -62,15 +60,10 @@ const AppNavigator = () => {
             <Stack.Screen name="EntrepriseInformation" component={EntrepriseInformation}  options={{ headerShown: false,animationEnabled:false}} />
             <Stack.Screen name="EntrepriseWorkingTime" component={EntrepriseWorkingTime}  options={{ headerShown: false,animationEnabled:false}} />
             <Stack.Screen name="BankInformation" component={BankInformation}  options={{ headerShown: false,animationEnabled:false}} />
-
-            
-            
             <Stack.Screen name="Verification" component={Verification}  options={{ headerShown: false }} />
             <Stack.Screen name="VerificationChangePassword" component={VerificationChangePassword}  options={{ headerShown: false }} />
             <Stack.Screen name="SupportScreen" component={SupportScreen}  options={{ headerShown: false }} />
-            <Stack.Screen name="Thanks" component={Thanks}  options={{ headerShown: false }} />
-
-            
+            <Stack.Screen name="Thanks" component={Thanks}  options={{ headerShown: false }} />            
             
             
             <Stack.Screen name="ForgotPassword" component={ForgotPassword}  options={{ headerShown: false }} />
