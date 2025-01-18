@@ -78,11 +78,17 @@ import Bank from '../../assets/icons/Bank';
 import Rib from '../../assets/icons/Rib';
 import File from '../../assets/icons/File';
 
+import articale from '../../assets/icons/articale';
+import Lavagerepassage from '../../assets/icons/Lavagerepassage';
+import lavageSec from '../../assets/icons/lavageSec';
 
 
 
 
 const icons = {
+    lavageSec,
+    Lavagerepassage,
+    articale,
     File,
     Rib,
     Bank,

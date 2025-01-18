@@ -3,17 +3,34 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image,Dimensions } 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import icons from '../../svg/svgLoader';
-
+import Icon_label from '../../components/Icon_label';
 import colors from '../../constants/colors';
 import HeaderComponent from '../../components/HeaderComponent';
 
 
 const products = [
-  { id: '1', category: 'Electronics', title: 'Laptop',date:'2025-01-15T08:25:30.000Z'},
-  { id: '2', category: 'Clothing', title: 'T-Shirt', date:'2025-01-04T08:25:30.000Z' },
-  { id: '3', category: 'Home', title: 'Vacuum Cleaner', date:'2025-01-04T08:25:30.000Z' },
-  { id: '4', category: 'Electronics', title: 'Headphones', date:'2025-01-04T08:25:30.000Z' },
+  { id: '0' , state: 'Terminée', code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '1' , state: 'En cours', code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L',adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '2' , state: 'Terminée' ,code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '3' , state: 'Annulée' , code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+
+  { id: '4' , state: 'En cours', code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '5' , state: 'Terminée' , code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '6' , state: 'Annulée' , code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  
+  { id: '7' , state: 'En cours', code:'CM013',date:'2025-01-02T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '8' , state: 'Terminée' , code:'CM013',date:'2025-01-02T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '9'  , state: 'Annulée', code:'CM013',date:'2025-01-02T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+
+  { id: '10' , state: 'En cours', code:'CM013',date:'2024-12-30T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '11' , state: 'Terminée' ,code:'CM013',date:'2024-11-16T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '12' , state: 'Annulée' ,code:'CM013',date:'2025-01-02T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '13' , state: 'Annulée' ,code:'CM013',date:'2024-12-30T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '14' , state: 'Annulée' ,code:'CM013',date:'2019-11-09T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'wassim', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '15' , state: 'Annulée' ,code:'CM013',date:'2023-12-30T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'wassim2', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
 ];
+
+
 const { width,height } = Dimensions.get('window');
 
 
@@ -25,11 +42,9 @@ export default function ProductScreen() {
    
 
   // Extract unique categories from products
-  const categories = ['All', ...new Set(products.map(product => product.category))];
+  const categories = ['All', ...new Set(products.map(product => product.state))];
 
-  const filteredProducts = selectedCategory === 'All'
-    ? products
-    : products.filter(product => product.category === selectedCategory);
+  const filteredProducts = selectedCategory === 'All' ? products : products.filter(product => product.state === selectedCategory);
 
     const getDateRange = (filterDateNettoyage) => {
       const today = new Date();
@@ -75,6 +90,201 @@ export default function ProductScreen() {
         <Text style={[styles.categoryText,item === selectedCategory && styles.categoryTextselected]}>{item}</Text>
         </TouchableOpacity>
       );
+    
+    
+  const renderIcon = (state) => {
+    switch (state) {
+      case 'En Attente':
+        return (
+          <View style={[styles.encours,{backgroundColor:'#FFB8B8'}]}>
+              {React.createElement(icons['EncoursRed'], { width:14 , height: 22,marginRight:5 })}
+              <Text style={[styles.StateText , styles.StateText,{color:'#B80101'}]}>En Attente</Text>
+          </View>
+      );
+      case 'En cours':
+        return (
+          <View style={styles.encours}>
+              {React.createElement(icons['Encours'], { width:14 , height: 22,marginRight:5 })}
+              <Text style={[styles.StateText , styles.StateText]}>En cours</Text>
+          </View>
+      );
+      case 'Terminée':
+        return (
+          <View style={[styles.encours,{backgroundColor:'#14DA32'}]}>
+              {React.createElement(icons['Terminee'], { width:14 , height: 22,marginRight:5 })}
+              <Text style={[styles.StateText , styles.StateText]}>Terminée</Text>
+          </View>
+      );
+      case 'Annulée':
+        return (
+          <View style={[styles.encours,{backgroundColor:'#CCCCCC'}]}>
+              {React.createElement(icons['Annulee'], { width:14 , height: 22,marginRight:5 })}
+              <Text style={[styles.StateText , styles.StateText]}>Annulée</Text>
+          </View>
+      );    
+      default:
+        return React.createElement(icons['Encours'], { width:14 , height: 22,marginRight:5 });
+    }
+  };
+
+  const renderCommandItemNettoyage = ({ item }) => (
+    <View style={styles.card}>
+        <View style={styles.actionButtonProduct}>
+          {item.state === "En cours"  && (
+            <View >   
+              <View  style={styles.tt} >
+                  <View >
+                    <Text style={styles.cardText}>{item.date}</Text>
+                    <Text style={[styles.cardText,{color:colors.primary}]}>★ --</Text>
+                  </View>
+                    {renderIcon(item.state)}
+              </View>
+
+
+              <View  style={styles.tt} >
+                    <Text style={[styles.cardText,{color:'#000'}]}>{item.code} , {item.nom}</Text>
+                    <Text style={[styles.cardText,{color:'#000',marginRight:20}]}>36 TND</Text>
+              </View>
+
+        
+                  <View style={styles.row}>
+                            {React.createElement(icons['User'],{width:15,height:15})}
+                            <Text style={styles.cardText}> Nom du client</Text>
+                            <Text style={[styles.cardText,{color:'#000'}]}> : {item.nom}</Text>
+                  </View>
+
+                          
+                  <View style={styles.row}>
+                            {React.createElement(icons['Calender'],{width:15,height:15})}
+                            <Text style={styles.cardText}> Livrée le : </Text>
+                            <Text style={[styles.cardText,{color:'#000'}]}>{item.dateL}</Text>
+                  </View>
+
+
+                  <View style={styles.row}>
+                          {React.createElement(icons['articale'],{width:15,height:15})}
+                          <Text style={styles.cardText}> Nombre d’articles : </Text>
+                          <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
+                  </View>
+
+                  <View style={[styles.row,{justifyContent:'space-between',marginVertical:10}]}>
+                          <View style={styles.row}>
+                                <View style={styles.cercle}>
+                                  {React.createElement(icons['Lavagerepassage'],{width:25,height:25})}
+                                  </View>
+                                <Text style={styles.cardText2}> Lavage/repassage</Text>
+                          </View>
+
+                          <View style={styles.row}>
+                            <View style={styles.cercle}>
+                            {React.createElement(icons['lavageSec'],{width:25,height:25})}
+                            </View>
+                                <Text style={styles.cardText2}> Lavage à sec </Text>
+                          </View>
+
+                          <View style={styles.row}>
+                              <View style={styles.cercle}>
+                                {React.createElement(icons['lavageSec'],{width:25,height:25})}
+                                </View>
+                                <Text style={styles.cardText2}> repassage</Text>
+                          </View>
+                  </View>
+            </View>
+
+        )}
+        {item.state === "Terminée" && (
+                      <View >   
+                      <View  style={styles.tt} >
+                          <View >
+                            <Text style={styles.cardText}>{item.date}</Text>
+                            <Text style={[styles.cardText,{color:colors.primary}]}>★ 4.3</Text>
+                          </View>
+                            {renderIcon(item.state)}
+                      </View>
+                      <Text style={[styles.cardText,{color:'#000'}]}>{item.code} , {item.nom}</Text>
+        
+                
+                          <View style={styles.row}>
+                                    {React.createElement(icons['User'],{width:15,height:15})}
+                                    <Text style={styles.cardText}> Nom du client</Text>
+                                    <Text style={[styles.cardText,{color:'#000'}]}> : {item.nom}</Text>
+                          </View>
+        
+                                  
+                          <View style={styles.row}>
+                                    {React.createElement(icons['Calender'],{width:15,height:15})}
+                                    <Text style={styles.cardText}> Livrée le : </Text>
+                                    <Text style={[styles.cardText,{color:'#000'}]}>{item.dateL}</Text>
+                          </View>
+        
+                          <View style={styles.row}>
+                                  {React.createElement(icons['articale'],{width:15,height:15})}
+                                  <Text style={styles.cardText}> Nombre d’articles : </Text>
+                                  <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
+                          </View>
+        
+                          <View style={[styles.row,{justifyContent:'space-between',marginVertical:10}]}>
+                                  <View style={styles.row}>
+                                        <View style={styles.cercle}>
+                                          {React.createElement(icons['Lavagerepassage'],{width:25,height:25})}
+                                          </View>
+                                        <Text style={styles.cardText2}> Lavage/repassage</Text>
+                                  </View>
+        
+                                  <View style={styles.row}>
+                                    <View style={styles.cercle}>
+                                    {React.createElement(icons['lavageSec'],{width:25,height:25})}
+                                    </View>
+                                        <Text style={styles.cardText2}> Lavage à sec </Text>
+                                  </View>
+        
+                                  <View style={styles.row}>
+                                      <View style={styles.cercle}>
+                                        {React.createElement(icons['lavageSec'],{width:25,height:25})}
+                                        </View>
+                                        <Text style={styles.cardText2}> repassage</Text>
+                                  </View>
+                          </View>
+                    </View>
+        )}
+        {item.state==="Annulée"  && (
+                        <View > 
+                  
+                        <View  style={styles.tt} >
+                            <View >
+                              <Text style={styles.cardText}>{item.date}</Text>
+                              <Text style={[styles.cardText,{color:colors.primary}]}>★ 4.3</Text>
+                            </View>
+                              {renderIcon(item.state)}
+                        </View>
+
+                        <Text style={[styles.cardText,{color:'#000'}]}>{item.code} , {item.nom}</Text>
+          
+                            <View style={styles.row}>
+                                      {React.createElement(icons['User'],{width:15,height:15})}
+                                      <Text style={styles.cardText}> Nom du client</Text>
+                                      <Text style={[styles.cardText,{color:'#000'}]}> : {item.nom}</Text>
+                            </View>
+          
+                                    
+                            <View style={styles.row}>
+                                      {React.createElement(icons['Calender'],{width:15,height:15})}
+                                      <Text style={styles.cardText}> Livrée le : </Text>
+                                      <Text style={[styles.cardText,{color:'#000'}]}>{item.dateL}</Text>
+                            </View>
+          
+          
+                            <View style={styles.row}>
+                                    {React.createElement(icons['articale'],{width:15,height:15})}
+                                    <Text style={styles.cardText}> Nombre d’articles : </Text>
+                                    <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
+                            </View>
+          
+                      </View>
+        )}
+        </View>     
+ </View>
+  );
 
 
   console.log(filteredProducts)
@@ -125,19 +335,16 @@ export default function ProductScreen() {
       
       </View>
 
-            {/* Products List */}
-            <FlatList
+
+          <FlatList
               data={filteredNettoyageByDate}
               keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <View style={styles.productItem}>
-                  <Image source={{ uri: item.image }} style={styles.productImage} />
-                  <Text style={styles.productTitle}>{item.title}</Text>
-                </View>
-              )}
-              contentContainerStyle={styles.productList}
-              showsVerticalScrollIndicator={false}
+              renderItem={renderCommandItemNettoyage}
+              // contentContainerStyle={styles.listContainer}
             />
+
+
+
     </View>
 
 
@@ -271,6 +478,150 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#007bff',
   },
+
+
   
-  
+  StateText:{
+    fontWeight:"bold",
+    color:colors.white,
+  },
+tt:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignContent:'space-between',
+    alignItems:'center',
+    marginBottom:20
+  },
+
+card: {
+  // width: width/2.3, 
+  // height: width/2.1,
+  borderRadius: 8,
+  flex:1,
+  overflow: 'hidden',
+  marginVertical: 10,
+  marginHorizontal:5,
+  backgroundColor: colors.background2, 
+  borderWidth:2,
+  borderColor:'#E6E5FD',
+  position: 'relative',
+},
+
+cardText: {
+  fontSize: 12,
+  marginBottom:5,
+  fontWeight: 'bold',
+  color: '#8C8C8C', 
+},
+cardText2: {
+  fontSize: 12,
+  fontWeight: 'bold',
+  color: colors.primary, 
+},
+row:{
+  flexDirection:'row',
+  alignContent:'center',
+  alignItems:'center'
+},
+cercle:{
+  width:width*0.1,
+  height:width*0.1,
+  justifyContent:'center',
+  alignContent:'center',
+  alignItems:'center',
+  borderRadius:20,
+  backgroundColor:colors.background,
+},
+priceText: {
+  fontSize: 14,
+  marginBottom:5,
+  fontWeight: 'bold',
+  color: colors.primary
+},
+price_plus:{
+  flexDirection:'row',
+  justifyContent:'space-between',
+  alignItems:'center',
+  alignContent:'center',
+},
+productPrice: {
+  fontSize: 14,
+  marginRight:50,
+  fontWeight: 'bold',
+  color:'#5549EF'
+},
+
+
+encours: {
+  flexDirection:'row',
+  width :width/4,
+  height: 40,
+  paddingHorizontal:10,
+  fontSize:12,
+  fontWeight:"regular",
+  borderRadius: 22,
+  marginRight: 10,
+  justifyContent:'center',
+  alignItems:'center',
+  backgroundColor:'#FFBA1A',
+},
+horizontalLine: {
+  height: 1, 
+  backgroundColor: '#5549EF', 
+  width: '100%', 
+  marginVertical: 10,
+},
+line:{
+  flexDirection:'row',
+  justifyContent:'space-between',
+},
+dropdownContainer: {
+  marginLeft:5,
+  marginVertical:5,
+},
+filterContainer: {
+  flexDirection:'row',
+  justifyContent: 'flex-end',
+  margin: 10,
+},
+dropdownButton: {
+  width:width/3,
+  height:height/25,
+  paddingVertical: 5,
+  // paddingHorizontal: 20,
+  backgroundColor: colors.white ,
+  borderWidth:1,
+  borderColor:colors.primary,
+  borderRadius: 5,
+},
+dropdownButtonText: {
+  color:colors.primary,
+  fontSize: 16,
+  textAlign: 'center',
+},
+dropdown: {
+  marginTop: 5,
+  backgroundColor: '#fff',
+  borderRadius: 5,
+  shadowColor: '#000',
+  shadowOpacity: 0.1,
+  shadowRadius: 10,
+  elevation: 3,
+},
+dropdownOption: {
+  padding: 15,
+  borderBottomWidth: 1,
+  borderBottomColor: '#ddd',
+},
+dropdownOptionText: {
+  fontSize: 16,
+  color: '#007bff',
+},
+actionButtonProduct: {
+  padding: 10,
+},
+StateText:{
+  fontWeight:"bold",
+  color:colors.white,
+},
 });
