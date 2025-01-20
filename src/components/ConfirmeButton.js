@@ -2,14 +2,14 @@ import React from 'react';
 import {Text, View, TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
 import colors from '../constants/colors';
 
-const ConfirmeButton = ({HandleConfimation,ConfirmeText,style }) => {
+const ConfirmeButton = ({HandleConfimation,ConfirmeText,style,style2 }) => {
 
 
 
   return (
     <View style={[styles.actionButtonsContainer,style]}>
 
-            <TouchableOpacity style={styles.actionButton} 
+            <TouchableOpacity style={[styles.actionButton,style2]} 
             onPress={HandleConfimation} >
                 <Text style={styles.actionButtonText}>{ConfirmeText}</Text>
             </TouchableOpacity>

@@ -3,38 +3,37 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image,Dimensions } 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import icons from '../../svg/svgLoader';
-import Icon_label from '../../components/Icon_label';
 import colors from '../../constants/colors';
 import HeaderComponent from '../../components/HeaderComponent';
 
 
 const products = [
-  { id: '0' , state: 'Terminée', code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '1' , state: 'En cours', code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L',adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '2' , state: 'Terminée' ,code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '3' , state: 'Annulée' , code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '0' , state: 'Terminée', code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '1' , state: 'En cours', code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L',adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '2' , state: 'Terminée' ,code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '3' , state: 'Annulée' , code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
 
-  { id: '4' , state: 'En cours', code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '5' , state: 'Terminée' , code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '6' , state: 'Annulée' , code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '4' , state: 'En cours', code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '5' , state: 'Terminée' , code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '6' , state: 'Annulée' , code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
   
-  { id: '7' , state: 'En cours', code:'CM013',date:'2025-01-02T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '8' , state: 'Terminée' , code:'CM013',date:'2025-01-02T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '9'  , state: 'Annulée', code:'CM013',date:'2025-01-02T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '7' , state: 'En cours', code:'CM013',date:'2025-01-02T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '8' , state: 'Terminée' , code:'CM013',date:'2025-01-02T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '9'  , state: 'Annulée', code:'CM013',date:'2025-01-02T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
 
-  { id: '10' , state: 'En cours', code:'CM013',date:'2024-12-30T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '11' , state: 'Terminée' ,code:'CM013',date:'2024-11-16T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '12' , state: 'Annulée' ,code:'CM013',date:'2025-01-02T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '13' , state: 'Annulée' ,code:'CM013',date:'2024-12-30T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '14' , state: 'Annulée' ,code:'CM013',date:'2019-11-09T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'wassim', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '15' , state: 'Annulée' ,code:'CM013',date:'2023-12-30T08:25:30.000Z',pressing:'Laundry Pressing',nom:'Mohamed mohamed',price:12,quantity:0, title: 'wassim2', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '10' , state: 'En cours', code:'CM013',date:'2024-12-30T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '11' , state: 'Terminée' ,code:'CM013',date:'2024-11-16T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '12' , state: 'Annulée' ,code:'CM013',date:'2025-01-02T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '13' , state: 'Annulée' ,code:'CM013',date:'2024-12-30T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '14' , state: 'Annulée' ,code:'CM013',date:'2019-11-09T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'wassim', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '15' , state: 'Annulée' ,code:'CM013',date:'2023-12-30T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'wassim2', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
 ];
 
 
 const { width,height } = Dimensions.get('window');
 
 
-export default function ProductScreen() {
+const HistoryScreen = ({navigation,route}) =>{
   const [selectedCategory, setSelectedCategory] = useState('All');
 
     const [filterDateNettoyage, setFilterDateNettoyage] = useState('All'); // 'All', 'Today', 'This Month', 'Last Month'
@@ -131,7 +130,7 @@ export default function ProductScreen() {
     <View style={styles.card}>
         <View style={styles.actionButtonProduct}>
           {item.state === "En cours"  && (
-            <View >   
+            <TouchableOpacity onPress={()=>{navigation.navigate('HistoryDetailScreen',{item:item})}} >   
               <View  style={styles.tt} >
                   <View >
                     <Text style={styles.cardText}>{item.date}</Text>
@@ -189,11 +188,11 @@ export default function ProductScreen() {
                                 <Text style={styles.cardText2}> repassage</Text>
                           </View>
                   </View>
-            </View>
+            </TouchableOpacity>
 
         )}
         {item.state === "Terminée" && (
-                      <View >   
+                      <TouchableOpacity onPress={()=>{navigation.navigate('HistoryDetailScreen',{item:item})}} >   
                       <View  style={styles.tt} >
                           <View >
                             <Text style={styles.cardText}>{item.date}</Text>
@@ -245,10 +244,10 @@ export default function ProductScreen() {
                                         <Text style={styles.cardText2}> repassage</Text>
                                   </View>
                           </View>
-                    </View>
+                    </TouchableOpacity>
         )}
         {item.state==="Annulée"  && (
-                        <View > 
+                        <TouchableOpacity onPress={()=>{navigation.navigate('HistoryDetailScreen',{item:item})}} > 
                   
                         <View  style={styles.tt} >
                             <View >
@@ -280,7 +279,7 @@ export default function ProductScreen() {
                                     <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
                             </View>
           
-                      </View>
+                      </TouchableOpacity>
         )}
         </View>     
  </View>
@@ -625,3 +624,6 @@ StateText:{
   color:colors.white,
 },
 });
+
+
+export default HistoryScreen;

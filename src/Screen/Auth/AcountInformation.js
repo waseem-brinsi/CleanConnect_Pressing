@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView,TouchableOpacity, StyleSheet, Alert,Image,Dimensions } from 'react-native';
+import { View, Text, TextInput, ScrollView, StyleSheet, Alert,Image,Dimensions } from 'react-native';
 import { API_BASE_URL } from  '../../config/config'; 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';

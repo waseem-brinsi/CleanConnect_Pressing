@@ -77,15 +77,17 @@ import FileUpload from '../../assets/icons/FileUpload';
 import Bank from '../../assets/icons/Bank';
 import Rib from '../../assets/icons/Rib';
 import File from '../../assets/icons/File';
-
 import articale from '../../assets/icons/articale';
 import Lavagerepassage from '../../assets/icons/Lavagerepassage';
 import lavageSec from '../../assets/icons/lavageSec';
+import Pig from '../../assets/icons/Pig';
+
 
 
 
 
 const icons = {
+    Pig,
     lavageSec,
     Lavagerepassage,
     articale,

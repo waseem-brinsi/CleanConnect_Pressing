@@ -1,12 +1,17 @@
-import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet,Dimensions,Image} from 'react-native';
+import React, { useRef } from 'react';
+import { View, Text, TouchableOpacity, ScrollView,StyleSheet,Dimensions,FlatList,Image,Linking,Alert,Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import ActionSheet from 'react-native-actions-sheet';
 import icons from '../../svg/svgLoader';
 import colors from '../../constants/colors';
+import HeaderComponent from '../../components/HeaderComponent';
+
+import ConfirmeButton from '../../components/ConfirmeButton';
 
 
-const { width } = Dimensions.get('window');
+
+const { width,height } = Dimensions.get('window');
 const groupedData = [
   {
     title: 'Lavage / Repassage',
@@ -34,157 +39,378 @@ const groupedData = [
   },
 ];
 
-
-
-
 const HistoryDetailScreen = ({navigation,route}) => {
-
-  const {item,similarProducts} = route.params;
+  const {item} = route.params;
+  const actionSheetRef = useRef();
   const navigationGoBack = useNavigation();
-  
 
-
-
-  
-
-
-  const handlePress = (item,similarProducts) => {
-
-
-    navigation.navigate('ProductDetailScreen',{item,similarProducts})
+  const showActionSheet = () => {
+    actionSheetRef.current?.show();
   };
 
-
-
-
-  const renderGroup = ({ item }) => (
-    <View style={styles.groupContainer}>
-      <Text style={styles.priceText}>{item.title}</Text>
-      <Text style={{ marginBottom:5 ,color:"#8C8C8C"}}>(2x) T-shirt / (2x) Pantalon</Text>
-      
-      <FlatList
-        data={item.data}
-        horizontal
-        keyExtractor={(imageItem) => imageItem.id}
-        renderItem={({ item }) => (
-          <Image source={item.url } style={styles.image} />
-        )}
-        showsHorizontalScrollIndicator={false}
-      />
-    </View>
-  );
-
-  const sections = [
-    { id: '1', type: 'section1',data: item },
-    { id: '2', type: 'section2',data: groupedData},
-  ];
-
-
-    
-  const renderSectionSwitch = ({ item }) => {
-    switch (item.type) {
-      case 'section1':
+  const renderIcon = (state) => {
+    switch (state) {
+      case 'En Attente':
         return (
-          <View style={styles.section}>
-              <View style={styles.card}>
-                    
-                      <View  style={styles.tt} >
-                          <View >
-                            <Text style={[styles.cardText,{color:'#000'}]}>{item.data.code}</Text>
-                            <Text style={styles.cardText}>{item.data.date}</Text>
-                          </View>
-                            {console.log(item.data)}
-
-                            <View style={[styles.encours,{backgroundColor:'#14DA32'}]}>
-                                {React.createElement(icons['Terminee'], { width:14 , height: 22,marginRight:5 })}
-                                <Text style={[styles.categoryText , styles.categoryTextselected]}>Terminée</Text>
-                            </View>
-                      </View>
-
-
-                      <View style={{flexDirection:'row'}}>
-                        <Text style={styles.cardText}>Pressing : </Text>
-                        <Text style={[styles.cardText,{color:'#000'}]}>{item.data.pressing}</Text>
-                      </View>
-
-                      <View style={{flexDirection:'row'}}>
-                        <Text style={styles.cardText}>Livreur : </Text>
-                        <Text style={[styles.cardText,{color:'#000'}]}>{item.data.livreur}</Text>
-                      </View>
-
-
-                          <View style={styles.horizontalLine} />
-                          <Text style={styles.cardText}>Adresse et date de récupération</Text>
-                          <Text style={[styles.cardText,{color:'#000',marginBottom:20}]}>03 rue de Tunis   Le 12/02/2024</Text>
-
-                          <Text style={styles.cardText}>Adresse et date  de livraison</Text>
-                          <Text style={[styles.cardText,{color:'#000'}]}>03 rue de Tunis   Le 12/02/2024</Text>
-
-                          
-                          <View style={styles.line}>
-                            <Text style={[styles.priceText,{color:"#8C8C8C"}]}>Nombre d'articles</Text>
-                            <Text style={[styles.priceText,{color:"#000"}]}>{item.data.price} Piéces</Text>
-                          </View>
-
-                          <View style={styles.horizontalLine} />
-                          
-                          <View style={styles.line}>
-                          <Text style={[styles.cardText,{color:'#000',fontSize:16}]}>Totale</Text>
-                          
-                            <View style={[styles.encours,{backgroundColor:colors.primary}]}>
-                              <Text style={[styles.categoryText , styles.categoryTextselected]}>{item.data.price} DT</Text>
-                            </View>
-                          </View>
-              </View>
+          <View style={[styles.encours,{backgroundColor:'#FFB8B8'}]}>
+              {React.createElement(icons['EncoursRed'], { width:14 , height: 22,marginRight:5 })}
+              <Text style={[styles.StateText , styles.StateText,{color:'#B80101'}]}>En Attente</Text>
           </View>
       );
-      case 'section2':
+      case 'En cours':
         return (
-          <View style={styles.section}>
-          <View style={styles.card}>
-    
-            <Text style={[styles.cardText,{color:'#000'}]}>Mes Articles (10)</Text>
-            <FlatList
-              data={groupedData}
-              keyExtractor={(group) => group.title}
-              renderItem={renderGroup}
-
-            />
-    
+          <View style={styles.encours}>
+              {React.createElement(icons['Encours'], { width:14 , height: 22,marginRight:5 })}
+              <Text style={[styles.StateText , styles.StateText]}>En cours</Text>
           </View>
-
-        </View>
-      ); 
+      );
+      case 'Terminée':
+        return (
+          <View style={[styles.encours,{backgroundColor:'#14DA32'}]}>
+              {React.createElement(icons['Terminee'], { width:14 , height: 22,marginRight:5 })}
+              <Text style={[styles.StateText , styles.StateText]}>Terminée</Text>
+          </View>
+      );
+      case 'Annulée':
+        return (
+          <View style={[styles.encours,{backgroundColor:'#CCCCCC'}]}>
+              {React.createElement(icons['Annulee'], { width:14 , height: 22,marginRight:5 })}
+              <Text style={[styles.StateText , styles.StateText]}>Annulée</Text>
+          </View>
+      );    
       default:
-        return null;
+        return React.createElement(icons['Encours'], { width:14 , height: 22,marginRight:5 });
     }
   };
 
+  const renderGroup = ({ item }) => (
+      <View style={styles.groupContainer}>
+        <Text style={styles.priceText}>{item.title} (4)</Text>
+        <Text style={{ marginBottom:20 ,color:"#8C8C8C"}}>(2x) T-shirt / (2x) Pantalon</Text>
+        
+        <FlatList
+          data={item.data}
+          horizontal
+          keyExtractor={(imageItem) => imageItem.id}
+          renderItem={({ item }) => (
+            <Image source={item.url } style={styles.image} />
+          )}
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
+      );
+  const callNumber = (phoneNumber) => {
+        const url = `tel:${phoneNumber}`;
+    
+        if (Platform.OS === 'android') {
+          Linking.openURL(url).catch((err) => {
+            console.error('Error making a phone call:', err);
+            Alert.alert('Error', 'Unable to make a call. Please check your device settings.');
+          });
+        } else if (Platform.OS === 'ios') {
+          Linking.canOpenURL(url)
+            .then((supported) => {
+              if (supported) {
+                return Linking.openURL(url);
+              } else {
+                Alert.alert('Error', 'Phone call is not supported on this device.');
+              }
+            })
+            .catch((err) => {
+              console.error('Error checking phone call support:', err);
+            });
+        } else {
+          Alert.alert('Error', 'Phone call is not supported on this platform.');
+        }
+      };
   return (
     <SafeAreaView style={styles.safeArea}>
-       
+                  <HeaderComponent title={'Historiques'}></HeaderComponent>
+       <ScrollView>
 
-        <View style={styles.container}>
+            <View style={styles.container}>
 
-              <View style={styles.header}>  
-                  <View style={styles.top}>
-                      <TouchableOpacity style={styles.backButton} onPress={() => navigationGoBack.goBack()}>
-                          {React.createElement(icons['Backarrow'], { width: 20, height: 20 ,stroke : colors.primary,strokewidth: 0.8 })}
-                      </TouchableOpacity>
-                      <Text  style={[styles.sectionTitle,styles.topTitle]}>Détails CM001</Text> 
-                  </View> 
 
-              </View>
 
-                <FlatList
-                      data={sections}
-                      renderItem={renderSectionSwitch}
-                      keyExtractor={(item) => item.id}
+            <Text style={styles.title}>Statut Actuel</Text>
+            {renderIcon(item.state)}
+            <Text style={styles.title}>Détails</Text>
+
+              {item.state === "En cours" &&(
+                <View>
+                  <View style={styles.card}>
+                  <View style={styles.actionButtonProduct}>
+                  <View  >  
                   
-                    />
+                  <Text style={[styles.title]}>Paiement</Text>
+                  <View style={styles.row}>
+                        {React.createElement(icons['Pig'],{width:15,height:15})}
+                        <Text style={styles.cardText}> Total payé :</Text>
+                        <Text style={[styles.cardText,{color:'#000'}]}>36 TND</Text>
+                  </View>
+                        <View  style={styles.tt} >
+                              <Text style={[styles.cardText,{color:'#000'}]}>Informations de la commande</Text>
+                                  <TouchableOpacity  onPress={showActionSheet}>
+                                      <Text style={[styles.priceText,{color:colors.primary,textDecorationLine:'underline'}]}>Voir panier</Text>
+                                  </TouchableOpacity>
+                        </View>
 
 
-      </View>
+                            <View style={styles.row}>
+                                      {React.createElement(icons['User'],{width:15,height:15})}
+                                      <Text style={styles.cardText}> Nom du client</Text>
+                                      <Text style={[styles.cardText,{color:'#000'}]}> : {item.firstName} {item.lastName} </Text>
+                            </View>
+
+
+                            <View style={styles.row}>
+                                    {React.createElement(icons['articale'],{width:15,height:15})}
+                                    <Text style={styles.cardText}> Nombre d’articles : </Text>
+                                    <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
+                            </View>
+
+                            <View style={[styles.row,{justifyContent:'space-between',marginVertical:10}]}>
+                                    <View style={styles.row}>
+                                          <View style={styles.cercle}>
+                                            {React.createElement(icons['Lavagerepassage'],{width:25,height:25})}
+                                            </View>
+                                          <Text style={styles.cardText2}> Lavage/repassage</Text>
+                                    </View>
+
+                                    <View style={styles.row}>
+                                      <View style={styles.cercle}>
+                                      {React.createElement(icons['lavageSec'],{width:25,height:25})}
+                                      </View>
+                                          <Text style={styles.cardText2}> Lavage à sec </Text>
+                                    </View>
+
+                                    <View style={styles.row}>
+                                        <View style={styles.cercle}>
+                                          {React.createElement(icons['lavageSec'],{width:25,height:25})}
+                                          </View>
+                                          <Text style={styles.cardText2}> repassage</Text>
+                                    </View>
+                            </View>
+
+                            <View  style={styles.tt} >
+                              <Text style={[styles.cardText,{color:'#000',fontSize: 14,marginRight:30}]}>Informations sur le Client</Text>
+                              
+                            <ConfirmeButton ConfirmeText={`📞 ${item.firstName} `} HandleConfimation={() => callNumber('123456789')} style={{flex:1}} style2={{backgroundColor:'#14DA32'}}></ConfirmeButton>
+
+                            </View>
+
+
+                            <View style={styles.row}>
+                                      {React.createElement(icons['User'],{width:15,height:15})}
+                                      <Text style={styles.cardText}> Nom du client</Text>
+                                      <Text style={[styles.cardText,{color:'#000'}]}> : {item.firstName} {item.lastName} </Text>
+                            </View>
+
+                                    
+                            <View style={styles.row}>
+                                      {React.createElement(icons['Map2'],{width:15,height:15})}
+                                      <Text style={styles.cardText}>Adresse du client : </Text>
+                                      <Text style={[styles.cardText,{color:'#000'}]}>{item.dateL}</Text>
+                            </View>
+
+                            <View  style={styles.tt} >
+                                <Text style={[styles.cardText,{color:'#000'}]}>Informations de Livraison </Text>
+                            </View>
+
+
+                            <View style={styles.row}>
+                                      {React.createElement(icons['Calender'],{width:15,height:15})}
+                                      <Text style={styles.cardText}> Livrée le : </Text>
+                                      <Text style={[styles.cardText,{color:'#000'}]}>{item.dateL}</Text>
+                            </View>
+
+                            <View  style={styles.tt} >
+                                <Text style={[styles.cardText,{color:'#000'}]}>Évaluation : --</Text>
+                            </View>
+
+                      </View>
+
+                  </View>
+                  </View>
+                  <ConfirmeButton ConfirmeText={'Lavage terminer'}></ConfirmeButton>
+                </View>
+              )}
+              {item.state === "Terminée" &&(
+                <View>
+                    <View style={styles.card}>
+                    <View style={styles.actionButtonProduct}>
+                    <View  >  
+                    <Text style={[styles.title]}>Paiement</Text>
+                          <View style={styles.row}>
+                                {React.createElement(icons['Pig'],{width:15,height:15})}
+                                <Text style={styles.cardText}> Total payé :</Text>
+                                <Text style={[styles.cardText,{color:'#000'}]}>36 TND</Text>
+                          </View>
+                          <View  style={styles.tt} >
+                                <Text style={[styles.title]}>Informations de la commande</Text>
+                                    <TouchableOpacity  onPress={showActionSheet}>
+                                        <Text style={[styles.priceText,{color:colors.primary,textDecorationLine:'underline'}]}>Voir panier</Text>
+                                    </TouchableOpacity>
+                          </View>
+
+
+                              <View style={styles.row}>
+                                        {React.createElement(icons['Calender'],{width:15,height:15})}
+                                        <Text style={styles.cardText}> Numéro de Commande : </Text>
+                                        <Text style={[styles.cardText,{color:'#000'}]}>{item.code}</Text>
+                              </View>
+
+
+                              <View style={styles.row}>
+                                      {React.createElement(icons['articale'],{width:15,height:15})}
+                                      <Text style={styles.cardText}> Nombre d’articles : </Text>
+                                      <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
+                              </View>
+
+                              <View style={[styles.row,{justifyContent:'space-between',marginVertical:10}]}>
+                                      <View style={styles.row}>
+                                            <View style={styles.cercle}>
+                                              {React.createElement(icons['Lavagerepassage'],{width:25,height:25})}
+                                              </View>
+                                            <Text style={styles.cardText2}> Lavage/repassage</Text>
+                                      </View>
+
+                                      <View style={styles.row}>
+                                        <View style={styles.cercle}>
+                                        {React.createElement(icons['lavageSec'],{width:25,height:25})}
+                                        </View>
+                                            <Text style={styles.cardText2}> Lavage à sec </Text>
+                                      </View>
+
+                                      <View style={styles.row}>
+                                          <View style={styles.cercle}>
+                                            {React.createElement(icons['lavageSec'],{width:25,height:25})}
+                                            </View>
+                                            <Text style={styles.cardText2}> repassage</Text>
+                                      </View>
+                              </View>
+
+                              <View  style={styles.tt} >
+                                <Text style={[styles.title]}>Informations de la commande</Text>
+                              </View>
+
+
+                              <View style={styles.row}>
+                                        {React.createElement(icons['User'],{width:15,height:15})}
+                                        <Text style={styles.cardText}> Nom du client</Text>
+                                        <Text style={[styles.cardText,{color:'#000'}]}> : {item.firstName} {item.lastName} </Text>
+                              </View>
+
+                                      
+                              <View style={styles.row}>
+                                        {React.createElement(icons['Map2'],{width:15,height:15})}
+                                        <Text style={styles.cardText}> Adresse du client : </Text>
+                                        <Text style={[styles.cardText,{color:'#000'}]}>{item.adresseL}</Text>
+                              </View>
+
+                              <View  style={styles.tt} >
+                                  <Text style={[styles.cardText,{color:'#000'}]}>Informations de Livraison </Text>
+                              </View>
+
+
+                              <View style={styles.row}>
+                                        {React.createElement(icons['Calender'],{width:15,height:15})}
+                                        <Text style={styles.cardText}> Date et heure de livraison : </Text>
+                                        <Text style={[styles.cardText,{color:'#000'}]}>{item.dateL}</Text>
+                              </View>
+
+                              <View  style={styles.tt} >
+                                  <Text style={[styles.title]}>Évaluation</Text>
+                              </View>
+
+                        </View>
+
+                    </View>
+                    </View>
+                <ConfirmeButton ConfirmeText={'Moyenne ★4.0'}></ConfirmeButton>
+                </View>
+              )}
+              {item.state === "Annulée" &&(
+                <View>
+                    <View style={styles.card}>
+                    <View style={styles.actionButtonProduct}>
+                    <View  >  
+                    <Text style={[styles.title]}>Paiement :--</Text>
+                          <View  style={styles.tt} >
+                                <Text style={[styles.title]}>Informations de la commande</Text>
+                          </View>
+
+
+                              <View style={styles.row}>
+                                        {React.createElement(icons['Calender'],{width:15,height:15})}
+                                        <Text style={styles.cardText}> Numéro de Commande : </Text>
+                                        <Text style={[styles.cardText,{color:'#000'}]}>{item.code}</Text>
+                              </View>
+
+
+                              <View style={styles.row}>
+                                      {React.createElement(icons['articale'],{width:15,height:15})}
+                                      <Text style={styles.cardText}> Nombre d’articles : </Text>
+                                      <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
+                              </View>
+
+
+                              <View  style={styles.tt} >
+                                <Text style={[styles.title]}>Informations sur le Client</Text>
+                              </View>
+
+
+                              <View style={styles.row}>
+                                        {React.createElement(icons['User'],{width:15,height:15})}
+                                        <Text style={styles.cardText}> Nom du client</Text>
+                                        <Text style={[styles.cardText,{color:'#000'}]}> : {item.firstName} {item.lastName} </Text>
+                              </View>
+
+                                      
+                              <View style={styles.row}>
+                                        {React.createElement(icons['Map2'],{width:15,height:15})}
+                                        <Text style={styles.cardText}> Adresse du client : </Text>
+                                        <Text style={[styles.cardText,{color:'#000'}]}>{item.adresseL}</Text>
+                              </View>
+
+                              <View  style={styles.tt} >
+                                  <Text style={[styles.cardText,{color:'#000'}]}>Informations de Livraison </Text>
+                              </View>
+
+
+                              <View style={styles.row}>
+                                        {React.createElement(icons['Calender'],{width:15,height:15})}
+                                        <Text style={styles.cardText}> Date et heure de livraison : </Text>
+                                        <Text style={[styles.cardText,{color:'#000'}]}>{item.dateL}</Text>
+                              </View>
+
+                              <View  style={styles.tt} >
+                                  <Text style={[styles.title]}>Évaluation :--</Text>
+                              </View>
+
+                        </View>
+
+                    </View>
+                    </View>
+
+                </View>
+                
+              )}
+          
+
+            <ActionSheet ref={actionSheetRef}>
+            <View style={styles.sheetContent}>    
+                            <Text style={[styles.sheetcardText,{color:'#000'}]}>Mon Panier (10 Piéces)</Text>
+                            <FlatList
+                              data={groupedData}
+                              keyExtractor={(group) => group.title}
+                              renderItem={renderGroup}
+                            />     
+            </View>
+          </ActionSheet>
+          </View>
+
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -199,140 +425,170 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: "#F3F4F6",
-   
+    backgroundColor: "#fff",
+   padding:10
+  },
+  title: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginVertical: 10,
   },
   
-  header:{
-   
-    paddingVertical:20,
-    borderBottomEndRadius:20,
-    borderBottomStartRadius:20,
-  },
-  top:{
-    flexDirection:'row',
-    justifyContent:'center',
-    alignItems:'center',
-    paddingHorizontal:10
-
-  },
-
-
-  topTitle:{
-    margin :"auto",
-    color:colors.primary,
-    marginTop:5,
-    fontSize:16,
-    fontWeight:"bold",
-  },
-
-
-  section:{
-    paddingHorizontal:20,
-  },
-
-
-
-  
+    StateText:{
+      fontWeight:"bold",
+      color:colors.white,
+    },
   tt:{
+      flexDirection:'row',
+      justifyContent:'space-between',
+      alignContent:'space-between',
+      alignItems:'center',
+      marginVertical:20
+    },
+  
+  card: {
+    // width: width/2.3, 
+    // height: width/2.1,
+    borderRadius: 8,
+    // flex:1,
+    overflow: 'hidden',
+    marginVertical: 10,
+    marginHorizontal:5,
+    backgroundColor: colors.background2, 
+    borderWidth:2,
+    borderColor:'#E6E5FD',
+    position: 'relative',
+  },
+  
+  cardText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#8C8C8C', 
+  },
+  cardText2: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: colors.primary, 
+  },
+  row:{
+    flexDirection:'row',
+    alignContent:'center',
+    alignItems:'center',
+    marginVertical:5
+  },
+  cercle:{
+    width:width*0.1,
+    height:width*0.1,
+    justifyContent:'center',
+    alignContent:'center',
+    alignItems:'center',
+    borderRadius:20,
+    backgroundColor:colors.background,
+  },
+  priceText: {
+    fontSize: 14,
+    marginBottom:5,
+    fontWeight: 'bold',
+    color: colors.primary
+  },
+  price_plus:{
     flexDirection:'row',
     justifyContent:'space-between',
-    alignContent:'space-between',
-    alignItems:'center'
+    alignItems:'center',
+    alignContent:'center',
+  },
+  productPrice: {
+    fontSize: 14,
+    marginRight:50,
+    fontWeight: 'bold',
+    color:'#5549EF'
+  },
+  
+  
+  encours: {
+    flexDirection:'row',
+    // width :width/4,
+    height: 40,
+    paddingHorizontal:10,
+    fontSize:12,
+    fontWeight:"regular",
+    borderRadius: 22,
+    marginRight: 10,
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor:'#FFBA1A',
+  },
+  horizontalLine: {
+    height: 1, 
+    backgroundColor: '#5549EF', 
+    width: '100%', 
+    marginVertical: 10,
+  },
+  line:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+  },
+  dropdownContainer: {
+    marginLeft:5,
+    marginVertical:5,
+  },
+  filterContainer: {
+    flexDirection:'row',
+    justifyContent: 'flex-end',
+    margin: 10,
+  },
+  dropdownButton: {
+    width:width/3,
+    height:height/25,
+    paddingVertical: 5,
+    // paddingHorizontal: 20,
+    backgroundColor: colors.white ,
+    borderWidth:1,
+    borderColor:colors.primary,
+    borderRadius: 5,
+  },
+  dropdownButtonText: {
+    color:colors.primary,
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  dropdown: {
+    marginTop: 5,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 3,
+  },
+  dropdownOption: {
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  dropdownOptionText: {
+    fontSize: 16,
+    color: '#007bff',
+  },
+  actionButtonProduct: {
+    padding: 10,
+  },
+  StateText:{
+    fontWeight:"bold",
+    color:colors.white,
+  },
+  sheetContent: {
+    // width: width/2.3, 
+    padding:10,
+    // height: width/2.1,
+    borderRadius: 8,
+    overflow: 'hidden',
+    marginVertical: 10,
+    marginHorizontal:5,
+    position: 'relative',
   },
 
-card: {
-  // width: width/2.3, 
-  padding:10,
-  // height: width/2.1,
-  borderRadius: 8,
-  overflow: 'hidden',
-  marginVertical: 10,
-  marginHorizontal:5,
-  backgroundColor: colors.background2, 
-  borderWidth:2,
-  borderColor:'#E6E5FD',
-  position: 'relative',
-},
-
-cardText: {
-  fontSize: 12,
-  marginBottom:10,
-  fontWeight: 'bold',
-  color: '#8C8C8C', 
-},
-priceText: {
-  fontSize: 14,
-  marginBottom:5,
-  fontWeight: 'bold',
-  color: colors.primary
-},
-price_plus:{
-  flexDirection:'row',
-  justifyContent:'space-between',
-  alignItems:'center',
-  alignContent:'center',
-},
-productPrice: {
-  fontSize: 14,
-  marginRight:50,
-  fontWeight: 'bold',
-  color:'#5549EF'
-},
-
-
-encours: {
-  flexDirection:'row',
-  width :width/4,
-  height: 40,
-  paddingHorizontal:10,
-  fontSize:12,
-  fontWeight:"regular",
-  borderRadius: 22,
-  marginRight: 10,
-  justifyContent:'center',
-  alignItems:'center',
-  backgroundColor:'#FFBA1A',
-},
-
-categoryTextselected: {
-  color:'#fff',
-  fontWeight:'bold',
  
-},
-categoryText: {
-  fontWeight:"bold",
-  color:colors.primary,
-},
-
-
-horizontalLine: {
-  height: 1, 
-  backgroundColor: '#5549EF', 
-  width: '100%', 
-  marginVertical: 10,
-},
-line:{
-  flexDirection:'row',
-  justifyContent:'space-between',
-  alignItems:'center'
-},
-
-groupContainer: {
-      marginBottom: 20,
-    },
-    groupTitle: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      marginBottom: 10,
-    },
-    image: {
-      width: 100,
-      height: 100,
-      borderRadius: 10,
-      marginRight: 10,
-    },
-  
 
 });
 
