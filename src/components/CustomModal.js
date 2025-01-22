@@ -5,15 +5,9 @@ import colors from '../constants/colors';
 
 
 const { width } = Dimensions.get('window');
-const CustomModal = ({ visible, onClose, setModalVisible, title, description,button1,button2,navigation  }) => {
-
-  const HandleConfimation = ()=>{
-    setModalVisible(false)
-    navigation.navigate('CommandeAnnulee',{
+const CustomModal = ({ visible, onClose, title, description,button1,button2,HandleConfimation  }) => {
 
 
-    })
-  }
   return (
     <Modal
       animationType="slide"

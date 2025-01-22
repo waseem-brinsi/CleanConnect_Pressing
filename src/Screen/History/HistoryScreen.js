@@ -33,12 +33,10 @@ const products = [
 const { width,height } = Dimensions.get('window');
 
 
-const HistoryScreen = ({navigation,route}) =>{
-  const [selectedCategory, setSelectedCategory] = useState('All');
-
+const HistoryScreen = ({navigation}) =>{
+    const [selectedCategory, setSelectedCategory] = useState('All');
     const [filterDateNettoyage, setFilterDateNettoyage] = useState('All'); // 'All', 'Today', 'This Month', 'Last Month'
     const [dropdownVisibleDateNettoyage, setDropdownVisibleDateNettoyage] = useState(false);
-   
 
   // Extract unique categories from products
   const categories = ['All', ...new Set(products.map(product => product.state))];
@@ -477,14 +475,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#007bff',
   },
-
-
-  
   StateText:{
     fontWeight:"bold",
     color:colors.white,
   },
-tt:{
+  tt:{
     flexDirection:'row',
     justifyContent:'space-between',
     alignContent:'space-between',
@@ -531,26 +526,6 @@ cercle:{
   borderRadius:20,
   backgroundColor:colors.background,
 },
-priceText: {
-  fontSize: 14,
-  marginBottom:5,
-  fontWeight: 'bold',
-  color: colors.primary
-},
-price_plus:{
-  flexDirection:'row',
-  justifyContent:'space-between',
-  alignItems:'center',
-  alignContent:'center',
-},
-productPrice: {
-  fontSize: 14,
-  marginRight:50,
-  fontWeight: 'bold',
-  color:'#5549EF'
-},
-
-
 encours: {
   flexDirection:'row',
   width :width/4,
@@ -563,16 +538,6 @@ encours: {
   justifyContent:'center',
   alignItems:'center',
   backgroundColor:'#FFBA1A',
-},
-horizontalLine: {
-  height: 1, 
-  backgroundColor: '#5549EF', 
-  width: '100%', 
-  marginVertical: 10,
-},
-line:{
-  flexDirection:'row',
-  justifyContent:'space-between',
 },
 dropdownContainer: {
   marginLeft:5,
@@ -598,30 +563,8 @@ dropdownButtonText: {
   fontSize: 16,
   textAlign: 'center',
 },
-dropdown: {
-  marginTop: 5,
-  backgroundColor: '#fff',
-  borderRadius: 5,
-  shadowColor: '#000',
-  shadowOpacity: 0.1,
-  shadowRadius: 10,
-  elevation: 3,
-},
-dropdownOption: {
-  padding: 15,
-  borderBottomWidth: 1,
-  borderBottomColor: '#ddd',
-},
-dropdownOptionText: {
-  fontSize: 16,
-  color: '#007bff',
-},
 actionButtonProduct: {
   padding: 10,
-},
-StateText:{
-  fontWeight:"bold",
-  color:colors.white,
 },
 });
 

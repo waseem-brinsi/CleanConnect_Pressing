@@ -1,12 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef,useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView,StyleSheet,Dimensions,FlatList,Image,Linking,Alert,Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
 import ActionSheet from 'react-native-actions-sheet';
 import icons from '../../svg/svgLoader';
 import colors from '../../constants/colors';
 import HeaderComponent from '../../components/HeaderComponent';
-
+import CustomModal from '../../components/CustomModal';
 import ConfirmeButton from '../../components/ConfirmeButton';
 
 
@@ -42,8 +41,12 @@ const groupedData = [
 const HistoryDetailScreen = ({navigation,route}) => {
   const {item} = route.params;
   const actionSheetRef = useRef();
-  const navigationGoBack = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
 
+  const HandleConfimation = ()=>{
+    setModalVisible(false)
+    navigation.navigate('Historiques')
+  }
   const showActionSheet = () => {
     actionSheetRef.current?.show();
   };
@@ -125,13 +128,10 @@ const HistoryDetailScreen = ({navigation,route}) => {
       };
   return (
     <SafeAreaView style={styles.safeArea}>
-                  <HeaderComponent title={'Historiques'}></HeaderComponent>
+        <HeaderComponent title={'Historiques'}></HeaderComponent>
        <ScrollView>
 
             <View style={styles.container}>
-
-
-
             <Text style={styles.title}>Statut Actuel</Text>
             {renderIcon(item.state)}
             <Text style={styles.title}>Détails</Text>
@@ -232,7 +232,7 @@ const HistoryDetailScreen = ({navigation,route}) => {
 
                   </View>
                   </View>
-                  <ConfirmeButton ConfirmeText={'Lavage terminer'}></ConfirmeButton>
+                  <ConfirmeButton ConfirmeText={'Lavage terminer'} HandleConfimation={()=>{setModalVisible(true)}}></ConfirmeButton>
                 </View>
               )}
               {item.state === "Terminée" &&(
@@ -340,13 +340,11 @@ const HistoryDetailScreen = ({navigation,route}) => {
                                 <Text style={[styles.title]}>Informations de la commande</Text>
                           </View>
 
-
                               <View style={styles.row}>
                                         {React.createElement(icons['Calender'],{width:15,height:15})}
                                         <Text style={styles.cardText}> Numéro de Commande : </Text>
                                         <Text style={[styles.cardText,{color:'#000'}]}>{item.code}</Text>
                               </View>
-
 
                               <View style={styles.row}>
                                       {React.createElement(icons['articale'],{width:15,height:15})}
@@ -354,11 +352,9 @@ const HistoryDetailScreen = ({navigation,route}) => {
                                       <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
                               </View>
 
-
                               <View  style={styles.tt} >
                                 <Text style={[styles.title]}>Informations sur le Client</Text>
                               </View>
-
 
                               <View style={styles.row}>
                                         {React.createElement(icons['User'],{width:15,height:15})}
@@ -377,40 +373,49 @@ const HistoryDetailScreen = ({navigation,route}) => {
                                   <Text style={[styles.cardText,{color:'#000'}]}>Informations de Livraison </Text>
                               </View>
 
-
                               <View style={styles.row}>
                                         {React.createElement(icons['Calender'],{width:15,height:15})}
                                         <Text style={styles.cardText}> Date et heure de livraison : </Text>
                                         <Text style={[styles.cardText,{color:'#000'}]}>{item.dateL}</Text>
                               </View>
-
                               <View  style={styles.tt} >
                                   <Text style={[styles.title]}>Évaluation :--</Text>
                               </View>
-
                         </View>
 
                     </View>
                     </View>
 
                 </View>
-                
+
               )}
           
 
             <ActionSheet ref={actionSheetRef}>
             <View style={styles.sheetContent}>    
-                            <Text style={[styles.sheetcardText,{color:'#000'}]}>Mon Panier (10 Piéces)</Text>
-                            <FlatList
-                              data={groupedData}
-                              keyExtractor={(group) => group.title}
-                              renderItem={renderGroup}
-                            />     
+                <Text style={[styles.sheetcardText,{color:'#000'}]}>Mon Panier (10 Piéces)</Text>
+                <FlatList
+                  data={groupedData}
+                  keyExtractor={(group) => group.title}
+                  renderItem={renderGroup}
+                />     
             </View>
           </ActionSheet>
           </View>
 
       </ScrollView>
+
+      <CustomModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        setModalVisible={setModalVisible}
+        HandleConfimation={HandleConfimation}
+        title="Confirmer la fin du lavage ?"
+        description="Êtes-vous sûr de vouloir marquer cette commande comme lavage terminé ?"
+        button1="Confirmer"
+        button2="Annuler"
+      />
+
     </SafeAreaView>
   );
 };

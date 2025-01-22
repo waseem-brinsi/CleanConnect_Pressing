@@ -81,12 +81,16 @@ import articale from '../../assets/icons/articale';
 import Lavagerepassage from '../../assets/icons/Lavagerepassage';
 import lavageSec from '../../assets/icons/lavageSec';
 import Pig from '../../assets/icons/Pig';
+import Pig1 from '../../assets/icons/Pig1';
+import List from '../../assets/icons/list';
 
 
 
 
 
 const icons = {
+    List,
+    Pig1,
     Pig,
     lavageSec,
     Lavagerepassage,
