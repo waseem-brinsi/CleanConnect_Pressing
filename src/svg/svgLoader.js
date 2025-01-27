@@ -83,12 +83,14 @@ import lavageSec from '../../assets/icons/lavageSec';
 import Pig from '../../assets/icons/Pig';
 import Pig1 from '../../assets/icons/Pig1';
 import List from '../../assets/icons/list';
+import TimeCounter from '../../assets/icons/TimeCounter';
 
 
 
 
 
 const icons = {
+    TimeCounter,
     List,
     Pig1,
     Pig,

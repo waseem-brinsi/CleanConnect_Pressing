@@ -592,9 +592,6 @@ const styles = StyleSheet.create({
     marginHorizontal:5,
     position: 'relative',
   },
-
- 
-
 });
 
 export default HistoryDetailScreen;

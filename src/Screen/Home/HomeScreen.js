@@ -1,20 +1,13 @@
 import React, { useRef, useEffect,useContext, useState } from 'react';
-import { View, Text, StyleSheet,TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { View, Text, StyleSheet,TouchableOpacity, FlatList, Dimensions,Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ActionSheet from 'react-native-actions-sheet';
 import icons from '../../svg/svgLoader';
 import colors from '../../constants/colors';
 import  ConfirmeButton from '../../components/ConfirmeButton';
 import  CancelButton from '../../components/CancelButton';
 
 const { width ,height} = Dimensions.get('window');
-
-
-
-
-
-
-
-// Get the screen width to calculate the item size
 
 
 const ITEM_WIDTH = width * 0.7;
@@ -30,11 +23,41 @@ const itemWidth = (screenWidth / splitScreen);
 const itemheight = (screenWidth / 7); 
 
 // Data
+const groupedData = [
+  {
+    title: 'Lavage / Repassage',
+    data: [
+      { id: '1', url: require('../../../assets/images/history/maryoul.jpg')},
+      { id: '2', url: require('../../../assets/images/history/maryoul2.jpg') },
+      { id: '3', url: require('../../../assets/images/history/maryoul.jpg') },
+      { id: '4', url: require('../../../assets/images/history/maryoul2.jpg') },
+    ],
+  },
+  {
+    title: 'Lavage à sec',
+    data: [
+      { id: '1', url: require('../../../assets/images/history/maryoul.jpg') },
+      { id: '2', url: require('../../../assets/images/history/maryoul2.jpg') },
+    ],
+  },
+  {
+    title: 'Repassage',
+    data: [
+      { id: '1', url: require('../../../assets/images/history/maryoul.jpg') },
+      { id: '2', url: require('../../../assets/images/history/maryoul2.jpg') },
+      { id: '3', url: require('../../../assets/images/history/maryoul.jpg') },
+    ],
+  },
+];
 const products = [
   { id: '1' , state: 'En cours', code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L',adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
   { id: '2' , state: 'En cours', code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '3' , state: 'New', code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L',adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '4' , state: 'New', code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 }
 ];
 
+const New = products.filter(product => product.state === 'New');
+const Encours = products.filter(product => product.state === 'En cours');
 const servicesData = [
   { id: '1', title: '360 DT  Revenu Total', span: 1, icon: 'Pig1', navigateTo:'Portfeuil'},
   { id: '2', title: '35 Commandes',  span: 1, icon: 'List', navigateTo: 'Historiques'},
@@ -42,6 +65,8 @@ const servicesData = [
 
 const HomeScreen = ({ navigation }) => {
   const [selectedTab, setSelectedTab] = useState('Nettoyage');
+    const actionSheetRef = useRef();
+  
 
   const handle_ServicePress = (servicesData) => {
     switch (servicesData.navigateTo) {
@@ -54,6 +79,30 @@ const HomeScreen = ({ navigation }) => {
       default:
         console.log('Unknown navigation target:', servicesData.navigateTo);
     }
+  };
+
+  const renderIcon = (state) => {
+    switch (state) {
+      case 'New':
+        return (
+          <View >
+              {React.createElement(icons['TimeCounter'], { width:30 , height: 30,marginRight:5 })}
+          </View>
+      );
+      case 'En cours':
+        return (
+          <View style={styles.encours}>
+              {React.createElement(icons['Encours'], { width:14 , height: 22,marginRight:5 })}
+              <Text style={[styles.StateText , styles.StateText]}>En cours</Text>
+          </View>
+      ); 
+      default:
+        return React.createElement(icons['Encours'], { width:14 , height: 22,marginRight:5 });
+    }
+  };
+
+  const showActionSheet = () => {
+    actionSheetRef.current?.show();
   };
 
   const renderItem = ({ item }) => (
@@ -69,65 +118,165 @@ const HomeScreen = ({ navigation }) => {
     </View>
     </TouchableOpacity>
   );
+
   const renderCard = ({ item }) => (
 
     <View style={styles.card}>
-    <View style={styles.actionButtonProduct}>
-                <View  style={styles.tt} >
-                      <Text style={[styles.cardText,{color:'#000'}]}>{item.code} , {item.firstName}  {item.lastName}</Text>
-                      <Text style={[styles.cardText,{color:'#000',marginRight:20}]}>36 TND</Text>
-                </View>
+    
+
+{item.state === "En cours" &&(
+      <View style={styles.actionButtonProduct}>
+      <View  style={styles.tt} >
+      <Text style={[styles.cardText,{color:'#000'}]}>{item.code} , {item.firstName}  {item.lastName}</Text>
+      {/* <Text style={[styles.cardText,{color:'#000',marginRight:20}]}>36 TND</Text> */}
+      <TouchableOpacity onPress={ ()=>{navigation.navigate("HistoryDetailScreen",{item:item})} }>
+        {renderIcon(item.state)}
+      </TouchableOpacity>
 
 
-                <View style={styles.row}>
-                          {React.createElement(icons['Map2'],{width:15,height:15})}
-                          <Text style={[styles.cardText,{color:'#000'}]}> : {item.adresseL}</Text>
-                </View>
-
-                
-                <View style={styles.row}>
-                          {React.createElement(icons['Calender'],{width:15,height:15})}
-                          <Text style={styles.cardText}> le : </Text>
-                          <Text style={[styles.cardText,{color:'#000'}]}>{item.dateL}</Text>
-                </View>
+</View>
 
 
-                <View style={styles.row}>
-                        {React.createElement(icons['articale'],{width:15,height:15})}
-                        <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
-                </View>
+<View style={styles.row}>
+          {React.createElement(icons['Map2'],{width:15,height:15})}
+          <Text style={[styles.cardText,{color:'#000'}]}> {item.adresseL}</Text>
+</View>
 
-                <View style={[styles.row,{justifyContent:'space-between',marginVertical:10}]}>
 
-                      <View style={styles.row}>
-                            <View style={styles.cercle}>
-                              {React.createElement(icons['Lavagerepassage'],{width:20,height:20})}
-                              </View>
-                            <Text style={styles.cardText2}> Lavage/repassage</Text>
-                      </View>
+<View style={styles.row}>
+          {React.createElement(icons['Calender'],{width:15,height:15})}
+          <Text style={styles.cardText}></Text>
+          <Text style={[styles.cardText,{color:'#000'}]}> le :{item.dateL}</Text>
+</View>
 
-                      <View style={styles.row}>
-                        <View style={styles.cercle}>
-                        {React.createElement(icons['lavageSec'],{width:20,height:20})}
-                        </View>
-                            <Text style={styles.cardText2}> Lavage à sec </Text>
-                      </View>
 
-                      <View style={styles.row}>
-                          <View style={styles.cercle}>
-                            {React.createElement(icons['lavageSec'],{width:20,height:20})}
-                            </View>
-                            <Text style={styles.cardText2}> repassage</Text>
-                      </View>
-                </View>
-                <View style={{flexDirection:'row'}}>
-                    <ConfirmeButton ConfirmeText={'Accepter'} style={{flex:1}}></ConfirmeButton>
-                    <CancelButton CancelText={'Refuser'} style={{flex:1}}></CancelButton>
-                </View>
+<View style={styles.row}>
+        {React.createElement(icons['articale'],{width:15,height:15})}
+        <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
+</View>
+
+<View style={[styles.row,{justifyContent:'space-between',marginVertical:10}]}>
+
+      <View style={styles.row}>
+            <View style={styles.cercle}>
+              {React.createElement(icons['Lavagerepassage'],{width:20,height:20})}
+              </View>
+            <Text style={styles.cardText2}> Lavage/repassage</Text>
       </View>
+
+      <View style={styles.row}>
+        <View style={styles.cercle}>
+        {React.createElement(icons['lavageSec'],{width:20,height:20})}
+        </View>
+            <Text style={styles.cardText2}> Lavage à sec </Text>
+      </View>
+
+      <View style={styles.row}>
+          <View style={styles.cercle}>
+            {React.createElement(icons['lavageSec'],{width:20,height:20})}
+            </View>
+            <Text style={styles.cardText2}> repassage</Text>
+      </View>
+</View>
+
+      <View style={{flexDirection:'row'}}>
+        <ConfirmeButton ConfirmeText={'Accepter'} style={{flex:1}}></ConfirmeButton>
+        <CancelButton CancelText={'Refuser'} style={{flex:1}}></CancelButton>
+      </View>
+     
+  </View>
+    )}
+    {item.state === "New" &&(
+      <View style={styles.actionButtonProduct}>
+      <View  style={styles.tt} >
+      <Text style={[styles.cardText,{color:colors.primary}]}>★--</Text>
+      <TouchableOpacity onPress={ showActionSheet }>
+      {renderIcon(item.state)}
+      </TouchableOpacity>
+
+</View>
+
+
+
+<View  style={styles.tt} >
+<View style={styles.row}>
+{React.createElement(icons['User'],{width:15,height:15})}
+
+          <Text style={[styles.cardText]}> Nom du client:</Text>
+          <Text style={[styles.cardText,{color:'#000'}]}> {item.firstName}  {item.lastName}</Text>
+          </View>
+          <Text style={[styles.cardText,{color:colors.primary,marginRight:20}]}>36 TND</Text>
+
+
+
+</View>
+
+
+<View style={styles.row}>
+          {React.createElement(icons['Calender'],{width:15,height:15})}
+          <Text style={styles.cardText}></Text>
+          <Text style={[styles.cardText]}> Livrée eéstimé le:</Text>
+          <Text style={[styles.cardText,{color:'#000'}]}> {item.dateL}</Text>
+</View>
+
+
+<View style={styles.row}>
+        {React.createElement(icons['articale'],{width:15,height:15})}
+        <Text style={[styles.cardText]}> Nombre d’articles :</Text>
+        <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
+</View>
+
+<View style={[styles.row,{justifyContent:'space-between',marginVertical:10}]}>
+
+      <View style={styles.row}>
+            <View style={styles.cercle}>
+              {React.createElement(icons['Lavagerepassage'],{width:20,height:20})}
+              </View>
+            <Text style={styles.cardText2}> Lavage/repassage</Text>
+      </View>
+
+      <View style={styles.row}>
+        <View style={styles.cercle}>
+        {React.createElement(icons['lavageSec'],{width:20,height:20})}
+        </View>
+            <Text style={styles.cardText2}> Lavage à sec </Text>
+      </View>
+
+      <View style={styles.row}>
+          <View style={styles.cercle}>
+            {React.createElement(icons['lavageSec'],{width:20,height:20})}
+            </View>
+            <Text style={styles.cardText2}> repassage</Text>
+      </View>
+</View>
+
+  </View>
+    
+    
+    )}
+    
     </View>
 
+
+
   );
+
+  const renderGroup = ({ item }) => (
+        <View style={styles.groupContainer}>
+          <Text style={styles.priceText}>{item.title} (4)</Text>
+          <Text style={{ marginBottom:20 ,color:"#8C8C8C"}}>(2x) T-shirt / (2x) Pantalon</Text>
+          <FlatList
+            data={item.data}
+            horizontal
+            keyExtractor={(imageItem) => imageItem.id}
+            renderItem={({ item }) => (
+              <Image source={item.url } style={styles.image} />
+            )}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+        );
+
   const sections = [
     { id: '1', type: 'section1'},
     { id: '2', type: 'section2'}
@@ -220,18 +369,21 @@ const HomeScreen = ({ navigation }) => {
                   </View>
   
                   <Text style={styles.subtitle}>Nouvelles commandes</Text>
+                
                         <FlatList
-                            data={products}
+                            data={Encours}
                             keyExtractor={(item) => item.id}
                             renderItem={renderCard}
                             // contentContainerStyle={styles.listContainer}
                           />
                   
                   <Text style={styles.subtitle}>Commandes en cours</Text>
+                    <FlatList
+                      data={New}
+                      keyExtractor={(item) => item.id}
+                      renderItem={renderCard}
+                    />
                   </View>
-
-
-
           )}
           {selectedTab === 'Boutique' && (
             <View>
@@ -240,11 +392,7 @@ const HomeScreen = ({ navigation }) => {
              <Text>tttt</Text>
             </View>
           )} 
-  
           </View>
-    
-
-         
         );
 
       default:
@@ -252,23 +400,39 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
-
   return (
     <SafeAreaView style={styles.safeArea}> 
-    <View style={styles.container}>
-
-        
+    <View style={styles.container}>     
 
     <FlatList
-                data={sections}
-                renderItem={renderSection}
-                keyExtractor={(item) => item.id}
-                contentContainerStyle={styles.container}
-                scrollEnabled={true}
-                />
-        
+      data={sections}
+      renderItem={renderSection}
+      keyExtractor={(item) => item.id}
+      contentContainerStyle={styles.container}
+      scrollEnabled={true}
+      />
+    
+    <ActionSheet ref={actionSheetRef}>
+      <View style={styles.sheetContent}>    
+          <Text style={[styles.sheetcardText,{color:'#000'}]}>Mon Panier (10 Piéces)</Text>
+          <FlatList
+            data={groupedData}
+            keyExtractor={(group) => group.title}
+            renderItem={renderGroup}
+          />  
+                  
+          <Text style={styles.priceText}>Note</Text>
+          <Text >Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          Phasellus mollis consequat bibendum. 
+          Donec tellus nibh, tristique in ligula eget, facilisis mattis neque. </Text> 
 
+        <View style={{flexDirection:'row',marginTop:10}}>
+            <ConfirmeButton ConfirmeText={'Accepter'} style={{flex:1}}></ConfirmeButton>
+            <CancelButton CancelText={'Refuser'} style={{flex:1}}></CancelButton>
+      </View>
 
+      </View>
+    </ActionSheet>
     </View>
     </SafeAreaView>
   );
@@ -370,6 +534,23 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     textAlign:'center',
   },
+  encours: {
+    flexDirection:'row',
+    width :width/4,
+    height: 40,
+    paddingHorizontal:10,
+    fontSize:12,
+    fontWeight:"regular",
+    borderRadius: 22,
+    marginRight: 10,
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor:'#FFBA1A',
+  },
+  StateText:{
+      fontWeight:"bold",
+      color:colors.white,
+    },
   row1:{
     flexDirection:'row',
     justifyContent:'space-around',
@@ -578,12 +759,25 @@ cardProduct: {
     color: '#555',
     textAlign: 'center',
   },
-
-  
-
+    priceText: {
+      fontSize: 14,
+      marginBottom:5,
+      fontWeight: 'bold',
+      color: colors.primary
+    },
 
   columnWrapper: {
     justifyContent: 'space-between',
+  },
+  sheetContent: {
+    // width: width/2.3, 
+    padding:10,
+    // height: width/2.1,
+    borderRadius: 8,
+    overflow: 'hidden',
+    marginVertical: 10,
+    marginHorizontal:5,
+    position: 'relative',
   },
 
 
