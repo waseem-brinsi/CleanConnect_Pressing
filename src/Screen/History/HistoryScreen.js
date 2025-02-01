@@ -127,158 +127,62 @@ const HistoryScreen = ({navigation}) =>{
   const renderCommandItemNettoyage = ({ item }) => (
     <View style={styles.card}>
         <View style={styles.actionButtonProduct}>
-          {item.state === "En cours"  && (
+
             <TouchableOpacity onPress={()=>{navigation.navigate('HistoryDetailScreen',{item:item})}} >   
-              <View  style={styles.tt} >
-                  <View >
-                    <Text style={styles.cardText}>{item.date}</Text>
-                    <Text style={[styles.cardText,{color:colors.primary}]}>★ --</Text>
-                  </View>
-                    {renderIcon(item.state)}
-              </View>
+
+<View style={styles.actionButtonProduct}>
+      <View  style={styles.tt} >
+      <Text style={[styles.cardText,{color:colors.primary}]}>★ --</Text>
+      {/* <Text style={[styles.cardText,{color:'#000',marginRight:20}]}>36 TND</Text> */}
+      <TouchableOpacity onPress={ ()=>{navigation.navigate("HistoryDetailScreen",{item:item})} }>
+        {renderIcon(item.state)}
+      </TouchableOpacity>
 
 
-              <View  style={styles.tt} >
-                    <Text style={[styles.cardText,{color:'#000'}]}>{item.code} , {item.nom}</Text>
-                    <Text style={[styles.cardText,{color:'#000',marginRight:20}]}>36 TND</Text>
-              </View>
+        </View>
+
+        <View style={styles.row}>
+                  <Text style={[styles.cardText,{color:'#000'}]}>Trajet de Livraison / CM012</Text>
+        </View>
 
         
-                  <View style={styles.row}>
-                            {React.createElement(icons['User'],{width:15,height:15})}
-                            <Text style={styles.cardText}> Nom du client</Text>
-                            <Text style={[styles.cardText,{color:'#000'}]}> : {item.nom}</Text>
-                  </View>
+        <View style={styles.row}>
+                {React.createElement(icons['Laundry'],{width:15,height:15})}
+                <Text style={[styles.cardText]}> Pressing :</Text>
+                <Text style={[styles.cardText,{color:'#000'}]}>LAUNDRY</Text>
+        </View>      
 
-                          
-                  <View style={styles.row}>
-                            {React.createElement(icons['Calender'],{width:15,height:15})}
-                            <Text style={styles.cardText}> Livrée le : </Text>
-                            <Text style={[styles.cardText,{color:'#000'}]}>{item.dateL}</Text>
-                  </View>
+        <View style={styles.row}>
+                  {React.createElement(icons['Map2'],{width:15,height:15})}
+                  <Text style={[styles.cardText]}>Adresse du Pressing :</Text>
+                  <Text style={[styles.cardText,{color:'#000'}]}> {item.adresseL}</Text>
+        </View>
+       
+        <View style={styles.row}>
+                  {React.createElement(icons['User'],{width:15,height:15})}
+                  <Text style={[styles.cardText]}> Nom du client :</Text>
+                  <Text style={[styles.cardText,{color:'#000'}]}> le :{item.dateL}</Text>
+        </View>
 
+        <View style={styles.row}>
+                  {React.createElement(icons['Map2'],{width:15,height:15})}
+                  <Text style={[styles.cardText]}>Adresse du Pressing :</Text>
+                  <Text style={[styles.cardText,{color:'#000'}]}> {item.adresseL}</Text>
+        </View>
+        
+        
+        <View style={styles.row}>
+                {React.createElement(icons['Clock'],{width:15,height:15})}
+                <Text style={[styles.cardText]}>Date et Durée de trajet :</Text>
+                <Text style={[styles.cardText,{color:'#000'}]}> 12/02/2024 ,</Text>
+                <Text style={[styles.cardText,{color:'green'}]}>25 Minutes</Text>
+        </View>
+        
 
-                  <View style={styles.row}>
-                          {React.createElement(icons['articale'],{width:15,height:15})}
-                          <Text style={styles.cardText}> Nombre d’articles : </Text>
-                          <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
-                  </View>
-
-                  <View style={[styles.row,{justifyContent:'space-between',marginVertical:10}]}>
-                          <View style={styles.row}>
-                                <View style={styles.cercle}>
-                                  {React.createElement(icons['Lavagerepassage'],{width:25,height:25})}
-                                  </View>
-                                <Text style={styles.cardText2}> Lavage/repassage</Text>
-                          </View>
-
-                          <View style={styles.row}>
-                            <View style={styles.cercle}>
-                            {React.createElement(icons['lavageSec'],{width:25,height:25})}
-                            </View>
-                                <Text style={styles.cardText2}> Lavage à sec </Text>
-                          </View>
-
-                          <View style={styles.row}>
-                              <View style={styles.cercle}>
-                                {React.createElement(icons['lavageSec'],{width:25,height:25})}
-                                </View>
-                                <Text style={styles.cardText2}> repassage</Text>
-                          </View>
-                  </View>
+        </View>
             </TouchableOpacity>
 
-        )}
-        {item.state === "Terminée" && (
-                      <TouchableOpacity onPress={()=>{navigation.navigate('HistoryDetailScreen',{item:item})}} >   
-                      <View  style={styles.tt} >
-                          <View >
-                            <Text style={styles.cardText}>{item.date}</Text>
-                            <Text style={[styles.cardText,{color:colors.primary}]}>★ 4.3</Text>
-                          </View>
-                            {renderIcon(item.state)}
-                      </View>
-                      <Text style={[styles.cardText,{color:'#000'}]}>{item.code} , {item.nom}</Text>
-        
-                
-                          <View style={styles.row}>
-                                    {React.createElement(icons['User'],{width:15,height:15})}
-                                    <Text style={styles.cardText}> Nom du client</Text>
-                                    <Text style={[styles.cardText,{color:'#000'}]}> : {item.nom}</Text>
-                          </View>
-        
-                                  
-                          <View style={styles.row}>
-                                    {React.createElement(icons['Calender'],{width:15,height:15})}
-                                    <Text style={styles.cardText}> Livrée le : </Text>
-                                    <Text style={[styles.cardText,{color:'#000'}]}>{item.dateL}</Text>
-                          </View>
-        
-                          <View style={styles.row}>
-                                  {React.createElement(icons['articale'],{width:15,height:15})}
-                                  <Text style={styles.cardText}> Nombre d’articles : </Text>
-                                  <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
-                          </View>
-        
-                          <View style={[styles.row,{justifyContent:'space-between',marginVertical:10}]}>
-                                  <View style={styles.row}>
-                                        <View style={styles.cercle}>
-                                          {React.createElement(icons['Lavagerepassage'],{width:25,height:25})}
-                                          </View>
-                                        <Text style={styles.cardText2}> Lavage/repassage</Text>
-                                  </View>
-        
-                                  <View style={styles.row}>
-                                    <View style={styles.cercle}>
-                                    {React.createElement(icons['lavageSec'],{width:25,height:25})}
-                                    </View>
-                                        <Text style={styles.cardText2}> Lavage à sec </Text>
-                                  </View>
-        
-                                  <View style={styles.row}>
-                                      <View style={styles.cercle}>
-                                        {React.createElement(icons['lavageSec'],{width:25,height:25})}
-                                        </View>
-                                        <Text style={styles.cardText2}> repassage</Text>
-                                  </View>
-                          </View>
-                    </TouchableOpacity>
-        )}
-        {item.state==="Annulée"  && (
-                        <TouchableOpacity onPress={()=>{navigation.navigate('HistoryDetailScreen',{item:item})}} > 
-                  
-                        <View  style={styles.tt} >
-                            <View >
-                              <Text style={styles.cardText}>{item.date}</Text>
-                              <Text style={[styles.cardText,{color:colors.primary}]}>★ 4.3</Text>
-                            </View>
-                              {renderIcon(item.state)}
-                        </View>
 
-                        <Text style={[styles.cardText,{color:'#000'}]}>{item.code} , {item.nom}</Text>
-          
-                            <View style={styles.row}>
-                                      {React.createElement(icons['User'],{width:15,height:15})}
-                                      <Text style={styles.cardText}> Nom du client</Text>
-                                      <Text style={[styles.cardText,{color:'#000'}]}> : {item.nom}</Text>
-                            </View>
-          
-                                    
-                            <View style={styles.row}>
-                                      {React.createElement(icons['Calender'],{width:15,height:15})}
-                                      <Text style={styles.cardText}> Livrée le : </Text>
-                                      <Text style={[styles.cardText,{color:'#000'}]}>{item.dateL}</Text>
-                            </View>
-          
-          
-                            <View style={styles.row}>
-                                    {React.createElement(icons['articale'],{width:15,height:15})}
-                                    <Text style={styles.cardText}> Nombre d’articles : </Text>
-                                    <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
-                            </View>
-          
-                      </TouchableOpacity>
-        )}
         </View>     
  </View>
   );

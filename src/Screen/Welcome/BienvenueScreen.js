@@ -21,7 +21,7 @@ const BienvenueScreen = ({ navigation }) => {
 
       <Text style={styles.TitleText}>Bienvenue sur</Text>
 
-      <Text style={[styles.TitleText,{fontSize: 32,}]}>CleanConnect Pressing</Text>
+      <Text style={[styles.TitleText,{fontSize: 32,}]}>CleanConnect Livreur</Text>
       {/* <Text style={[styles.TitleText,{fontSize: 24,}]}></Text> */}
 
       <View style={styles.Pressing}>

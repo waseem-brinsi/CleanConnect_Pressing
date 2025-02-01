@@ -1,18 +1,17 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
 import colors from '../constants/colors';
+import icons from '../svg/svgLoader';
 
-const CancelButton = ({HandleCancel,CancelText,style }) => {
-
+const CancelButton = ({HandleCancel,CancelText,style, icon }) => {
 
 
   return (
     <View style={[styles.actionButtonsContainer,style]}>
-    
-            <TouchableOpacity style={styles.actionButton} onPress={HandleCancel} >
-                <Text style={styles.actionButtonText}>{CancelText}</Text>
-            </TouchableOpacity>
-
+        <TouchableOpacity style={styles.actionButton} onPress={HandleCancel} >
+            <Text style={styles.actionButtonText}>{CancelText}</Text>
+            {icon && icons[icon] ? React.createElement(icons[icon], { width: 20, height: 20 }) : null}
+        </TouchableOpacity>
     </View>
   );
 };
@@ -31,8 +30,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background2,
     borderColor:colors.primary,
     borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    padding:8,
     marginHorizontal: 5,
     borderWidth:1
   },

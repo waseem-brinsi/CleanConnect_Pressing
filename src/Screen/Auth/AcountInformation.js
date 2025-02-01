@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView, StyleSheet, Alert,Image,Dimensions } from 'react-native';
+import { View, Text, TextInput, ScrollView, StyleSheet, Alert,Image,Dimensions,TouchableOpacity } from 'react-native';
 import { API_BASE_URL } from  '../../config/config'; 
+import * as ImagePicker from 'expo-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../constants/colors';
@@ -14,17 +15,61 @@ const { width,height } = Dimensions.get('window');
 
 
 const AcountInformation = ({ navigation }) => {
-
   const navigationGoBack = useNavigation();
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [password_confirmation, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [ profileImage, setProfileImage] = useState('');
   const [loading, setLoading] = useState(false);
 
 
 
+  
+  const handleEditPhoto = async () => {
+    const options = ['Take Photo', 'Choose from Library', 'Cancel'];
+    const cancelButtonIndex = 2;
+  
+    Alert.alert('Update Profile Photo', 'Choose an option:', [
+      {
+        text: options[0],
+        onPress: async () => {
+          const { status } = await ImagePicker.requestCameraPermissionsAsync();
+          if (status !== 'granted') {
+            Alert.alert('Permission Denied', 'Camera permission is required to take a photo.');
+            return;
+          }
+          const result = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+          });
+          if (!result.canceled) setProfileImage(result.assets[0].uri);
+        },
+      },
+      {
+        text: options[1],
+        onPress: async () => {
+          const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (status !== 'granted') {
+            Alert.alert(
+              'Permission Denied',
+              'Media library permission is required to choose a photo. Please enable it in settings.'
+            );
+            return;
+          }
+          const result = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+          });
+          if (!result.canceled) setProfileImage(result.assets[0].uri);
+        },
+      },
+      { text: options[2], style: 'cancel' },
+    ]);
+  };
 
   const isValidPhoneNumber = (phoneNumber) => {
     // Regular expression to check if phone number is valid (digits only)
@@ -91,17 +136,15 @@ const AcountInformation = ({ navigation }) => {
     
   };
 
-  return (
+
+return (
 <SafeAreaView style={styles.safeArea}>
-
-  
-
         <View style={styles.topContainer}>
 
           {React.createElement(icons['percent1'],{width:58 ,height:58})}
             <View>
                 <Text style={styles.title}>Informations Personnelles</Text>
-                <Text style={styles.subtitle}> Suivant : Informations de l’entreprise</Text>
+                <Text style={styles.subtitle}>Suivant : Informations de Véhicule</Text>
             </View>
 
         </View>
@@ -109,6 +152,23 @@ const AcountInformation = ({ navigation }) => {
 
         <View style={styles.container}>
         
+
+        <View style={styles.section1}>      
+            <View style={styles.profileContainer}>
+            <View style={styles.imageContainer}>
+
+            {profileImage ? (
+                <Image source={{ uri: profileImage }} style={styles.profileImage} />
+                ) : (
+                React.createElement(icons['Entreprise2'], { width: 80, height: 80})
+                )}
+
+                <TouchableOpacity style={styles.editIcon} onPress={handleEditPhoto}>
+                {React.createElement(icons['camera'], { width: 25, height: 25})}
+                </TouchableOpacity>
+            </View>
+            </View>
+        </View>
 
         <View style={styles.inputContainer}>
           <Icon_label icon={"User"} title={"Nom et Prénom"} />
@@ -150,6 +210,7 @@ const AcountInformation = ({ navigation }) => {
               onChangeText={setEmail}
               keyboardType="email-address"
           />
+        <Icon_label style={{backgroundColor:colors.background,borderRadius:12,padding:5}} styletext={{color:colors.primary,fontSize:12}} icon={"Alert"} title={"Veuillez consulter votre boîte mail pour vérifier votre adresse."} />
   
         <Icon_label icon={"Lock"} title={"Mot de Passe"} />
         <TextInput
@@ -186,7 +247,7 @@ const AcountInformation = ({ navigation }) => {
 
         </ScrollView>
 
-    </SafeAreaView>
+</SafeAreaView>
 
   );
 };
@@ -204,6 +265,31 @@ const styles = StyleSheet.create({
       // alignItems: 'center',
       padding: 20,  
       marginBottom:50
+    },
+    section1: {
+      // backgroundColor: colors.background2,
+      paddingVertical: 10,
+      alignItems: 'center',
+    },
+    profileContainer: {
+      alignItems: 'center',
+    },
+    imageContainer: {
+      position: 'relative',
+      backgroundColor:colors.background2,
+      borderRadius: 50,
+    },
+    profileImage: {
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+    },
+    editIcon: {
+      position: 'absolute',
+      bottom: -4,
+      right: -4,
+      borderRadius: 15,
+      padding: 4,
     },
     topContainer:{
       flexDirection:"row",

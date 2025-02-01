@@ -84,12 +84,27 @@ import Pig from '../../assets/icons/Pig';
 import Pig1 from '../../assets/icons/Pig1';
 import List from '../../assets/icons/list';
 import TimeCounter from '../../assets/icons/TimeCounter';
-
+import Livreur from '../../assets/icons/Livreur';
+import Recepteur from '../../assets/icons/Recepteur';
+import Laundry from '../../assets/icons/Laundry';
+import Clock from '../../assets/icons/Clock';
+import Alert from '../../assets/icons/Alert';
+import Car from '../../assets/icons/Car';
+import Car2 from '../../assets/icons/Car2';
+import ABC from '../../assets/icons/ABC';
 
 
 
 
 const icons = {
+    ABC,
+    Car,
+    Car2,
+    Alert,
+    Clock,
+    Laundry,
+    Livreur,
+    Recepteur,
     TimeCounter,
     List,
     Pig1,

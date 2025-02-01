@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CleanConnect_Pressing",
-    "slug": "CleanConnect_Pressing",
+    "name": "CleanConnect_Livreur",
+    "slug": "CleanConnect_Livreur",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -36,7 +36,7 @@
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.wassim.brinssi.CleanConnect_Pressing"
+      "package": "com.wassim.brinssi.CleanConnect_Livreur"
     },
     "web": {
       "favicon": "./assets/favicon.png"

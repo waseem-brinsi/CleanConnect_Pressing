@@ -4,13 +4,11 @@ import { View, StyleSheet,Text} from 'react-native';
 import icons from '../svg/svgLoader';
 import colors from '../constants/colors';
 
-const Icon_label = ({icon,title,style}) => {
-
-  
+const Icon_label = ({icon,title,style,styletext}) => {
   return (
     <View style={[styles.row,style]}>
     {React.createElement(icons[icon],{width:20,height:20})}
-    <Text style={styles.label}>{title}</Text>
+    <Text style={[styles.label,styletext]}>{title}</Text>
   </View>
   );
 };

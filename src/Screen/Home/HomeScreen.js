@@ -50,10 +50,16 @@ const groupedData = [
   },
 ];
 const products = [
-  { id: '1' , state: 'En cours', code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L',adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '2' , state: 'En cours', code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '3' , state: 'New', code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L',adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
-  { id: '4' , state: 'New', code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 }
+  { id: '1' , state: 'En cours',trajet:'Livraison', code:'CM001',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L',adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '2' , state: 'En cours',trajet:'Récuperation', code:'CM001',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '3' , state: 'New',trajet:'Livraison', img:'Livreur', code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L',adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '4' , state: 'New',trajet:'Récuperation', img:'Recepteur',code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 }
+];
+const New2 = [
+  { id: '1' , state: 'New',trajet:'Livraison', img:'Livreur', code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L',adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '2' , state: 'New',trajet:'Récuperation', img:'Recepteur', code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '3' , state: 'New',trajet:'Livraison', img:'Livreur', code:'CM013',date:'2025-01-04T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L',adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 },
+  { id: '4' , state: 'New',trajet:'Récuperation', img:'Recepteur', code:'CM013',date:'2025-01-03T08:25:30.000Z',pressing:'Laundry Pressing',firstName:'Ahmed', lastName:'Ahmed ',price:12,quantity:0, title: 'Lessive LIQUIDE pour MACHINE AUTOMATIQUE 3L', adresseL:'03 rue de Tunis , Tunisie' ,dateL:'2024-11-01T08:25:30.000Z',nbrArticale:11 }
 ];
 
 const New = products.filter(product => product.state === 'New');
@@ -93,7 +99,7 @@ const HomeScreen = ({ navigation }) => {
         return (
           <View style={styles.encours}>
               {React.createElement(icons['Encours'], { width:14 , height: 22,marginRight:5 })}
-              <Text style={[styles.StateText , styles.StateText]}>En cours</Text>
+              <Text style={[styles.StateText , styles.StateText]}> En cours</Text>
           </View>
       ); 
       default:
@@ -127,138 +133,98 @@ const HomeScreen = ({ navigation }) => {
 {item.state === "En cours" &&(
       <View style={styles.actionButtonProduct}>
       <View  style={styles.tt} >
-      <Text style={[styles.cardText,{color:'#000'}]}>{item.code} , {item.firstName}  {item.lastName}</Text>
+      <Text style={[styles.cardText,{color:colors.primary}]}>★ --</Text>
       {/* <Text style={[styles.cardText,{color:'#000',marginRight:20}]}>36 TND</Text> */}
       <TouchableOpacity onPress={ ()=>{navigation.navigate("HistoryDetailScreen",{item:item})} }>
         {renderIcon(item.state)}
       </TouchableOpacity>
-
-
-</View>
-
-
-<View style={styles.row}>
-          {React.createElement(icons['Map2'],{width:15,height:15})}
-          <Text style={[styles.cardText,{color:'#000'}]}> {item.adresseL}</Text>
-</View>
-
-
-<View style={styles.row}>
-          {React.createElement(icons['Calender'],{width:15,height:15})}
-          <Text style={styles.cardText}></Text>
-          <Text style={[styles.cardText,{color:'#000'}]}> le :{item.dateL}</Text>
-</View>
-
-
-<View style={styles.row}>
-        {React.createElement(icons['articale'],{width:15,height:15})}
-        <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
-</View>
-
-<View style={[styles.row,{justifyContent:'space-between',marginVertical:10}]}>
-
-      <View style={styles.row}>
-            <View style={styles.cercle}>
-              {React.createElement(icons['Lavagerepassage'],{width:20,height:20})}
-              </View>
-            <Text style={styles.cardText2}> Lavage/repassage</Text>
-      </View>
-
-      <View style={styles.row}>
-        <View style={styles.cercle}>
-        {React.createElement(icons['lavageSec'],{width:20,height:20})}
         </View>
-            <Text style={styles.cardText2}> Lavage à sec </Text>
-      </View>
+        <View style={styles.row}>
+                  <Text style={[styles.cardText,{color:'#000'}]}>Trajet de Livraison / CM012</Text>
+        </View>
 
-      <View style={styles.row}>
-          <View style={styles.cercle}>
-            {React.createElement(icons['lavageSec'],{width:20,height:20})}
-            </View>
-            <Text style={styles.cardText2}> repassage</Text>
-      </View>
-</View>
+        
+        <View style={styles.row}>
+                {React.createElement(icons['Laundry'],{width:15,height:15})}
+                <Text style={[styles.cardText]}> Pressing :</Text>
+                <Text style={[styles.cardText,{color:'#000'}]}>LAUNDRY</Text>
+        </View>      
 
-      <View style={{flexDirection:'row'}}>
-        <ConfirmeButton ConfirmeText={'Accepter'} style={{flex:1}}></ConfirmeButton>
-        <CancelButton CancelText={'Refuser'} style={{flex:1}}></CancelButton>
-      </View>
-     
-  </View>
+        <View style={styles.row}>
+                  {React.createElement(icons['Map2'],{width:15,height:15})}
+                  <Text style={[styles.cardText]}>Adresse du Pressing :</Text>
+                  <Text style={[styles.cardText,{color:'#000'}]}> {item.adresseL}</Text>
+        </View>
+       
+        <View style={styles.row}>
+                  {React.createElement(icons['User'],{width:15,height:15})}
+                  <Text style={[styles.cardText]}> Nom du client :</Text>
+                  <Text style={[styles.cardText,{color:'#000'}]}> le :{item.dateL}</Text>
+        </View>
+
+        <View style={styles.row}>
+                  {React.createElement(icons['Map2'],{width:15,height:15})}
+                  <Text style={[styles.cardText]}>Adresse du Pressing :</Text>
+                  <Text style={[styles.cardText,{color:'#000'}]}> {item.adresseL}</Text>
+        </View>
+        
+        
+        <View style={styles.row}>
+                {React.createElement(icons['Clock'],{width:15,height:15})}
+                <Text style={[styles.cardText]}>Date et Durée de trajet :</Text>
+                <Text style={[styles.cardText,{color:'#000'}]}> 12/02/2024 ,</Text>
+                <Text style={[styles.cardText,{color:'green'}]}>25 Minutes</Text>
+        </View>
+        
+
+        </View>
     )}
-    {item.state === "New" &&(
+{item.state === "New" &&(
       <View style={styles.actionButtonProduct}>
-      <View  style={styles.tt} >
-      <Text style={[styles.cardText,{color:colors.primary}]}>★--</Text>
-      <TouchableOpacity onPress={ showActionSheet }>
-      {renderIcon(item.state)}
-      </TouchableOpacity>
-
-</View>
-
-
-
-<View  style={styles.tt} >
-<View style={styles.row}>
-{React.createElement(icons['User'],{width:15,height:15})}
-
-          <Text style={[styles.cardText]}> Nom du client:</Text>
-          <Text style={[styles.cardText,{color:'#000'}]}> {item.firstName}  {item.lastName}</Text>
+        <View style={styles.rowimage}>
+          <View style={styles.image2}>
+          {React.createElement(icons[item.img],{width:40,height:40})}
           </View>
-          <Text style={[styles.cardText,{color:colors.primary,marginRight:20}]}>36 TND</Text>
+
+              <View style={styles.Rightpart} >
+                      <View  style={styles.tt1} >
+                          <Text style={[styles.cardText,{color:colors.primary}]}>Trajet de {item.trajet} {item.code}</Text>
+                            <TouchableOpacity onPress={ showActionSheet }>
+                                {renderIcon(item.state)}
+                            </TouchableOpacity>
+                      </View>
+
+                      <View style={styles.row}>
+                                {React.createElement(icons['Map2'],{width:15,height:15})}
+                                {/* <Text style={[styles.cardText]}> Livrée eéstimé le:</Text> */}
+                                <Text style={[styles.cardText,{color:colors.primary}]}> P:</Text>
+                               
+                                <Text style={[styles.cardText,{color:'#000'}]}> {item.adresseL}</Text>
+                      </View>
+                      <View style={styles.row}>
+                                {React.createElement(icons['Map2'],{width:15,height:15})}
+                                {/* <Text style={[styles.cardText]}> Livrée eéstimé le:</Text> */}
+                                <Text style={[styles.cardText,{color:colors.primary}]}> C:</Text>
+                               
+                                <Text style={[styles.cardText,{color:'#000'}]}> {item.adresseL}</Text>
+                      </View>
+
+                      <View style={styles.row}>
+                            {React.createElement(icons['Calender'],{width:15,height:15})}
+                            <Text style={[styles.cardText,{color:'#000'}]}> Le {item.dateL}</Text>
+                      </View>
 
 
-
-</View>
-
-
-<View style={styles.row}>
-          {React.createElement(icons['Calender'],{width:15,height:15})}
-          <Text style={styles.cardText}></Text>
-          <Text style={[styles.cardText]}> Livrée eéstimé le:</Text>
-          <Text style={[styles.cardText,{color:'#000'}]}> {item.dateL}</Text>
-</View>
-
-
-<View style={styles.row}>
-        {React.createElement(icons['articale'],{width:15,height:15})}
-        <Text style={[styles.cardText]}> Nombre d’articles :</Text>
-        <Text style={[styles.cardText,{color:'#000'}]}>{item.nbrArticale} pièces</Text>
-</View>
-
-<View style={[styles.row,{justifyContent:'space-between',marginVertical:10}]}>
-
-      <View style={styles.row}>
-            <View style={styles.cercle}>
-              {React.createElement(icons['Lavagerepassage'],{width:20,height:20})}
+                      <View style={{flexDirection:'row'}}>
+                        
+                                      <ConfirmeButton ConfirmeText={'Accepter'}  style={{flex:1}}></ConfirmeButton>
+                                      <CancelButton CancelText={'Refuser'} style={{flex:1}}></CancelButton>
+                      </View>
               </View>
-            <Text style={styles.cardText2}> Lavage/repassage</Text>
-      </View>
-
-      <View style={styles.row}>
-        <View style={styles.cercle}>
-        {React.createElement(icons['lavageSec'],{width:20,height:20})}
         </View>
-            <Text style={styles.cardText2}> Lavage à sec </Text>
       </View>
-
-      <View style={styles.row}>
-          <View style={styles.cercle}>
-            {React.createElement(icons['lavageSec'],{width:20,height:20})}
-            </View>
-            <Text style={styles.cardText2}> repassage</Text>
-      </View>
-</View>
-
-  </View>
-    
-    
     )}
-    
     </View>
-
-
-
   );
 
   const renderGroup = ({ item }) => (
@@ -310,36 +276,34 @@ const HomeScreen = ({ navigation }) => {
       case 'section2':
         return (
           <View style={styles.section}>
-
-          <View style={styles.tabContainer}>
-              <TouchableOpacity
-                style={[selectedTab === 'Nettoyage' && styles.activeTab]}
-                onPress={() => setSelectedTab('Nettoyage')}
-              >
-                <Text 
-                style={[selectedTab === 'Nettoyage' && styles.tabTextSelected]}
+            <View style={styles.tabContainer}>
+                <TouchableOpacity
+                  style={[selectedTab === 'Nettoyage' && styles.activeTab]}
+                  onPress={() => setSelectedTab('Nettoyage')}
                 >
-                  Acceuil</Text>
-              </TouchableOpacity> 
-  
-              <TouchableOpacity
-                style={[styles.tabButton, selectedTab === 'Boutique' && styles.activeTab]}
-                onPress={() => setSelectedTab('Boutique')}
-              >
-                <Text
-                style={[selectedTab === 'Boutique' && styles.tabTextSelected]}
-                >Nouvelles commandes</Text>
-              </TouchableOpacity>
-  
-              <TouchableOpacity
-                style={[styles.tabButton, selectedTab === 'En cours' && styles.activeTab]}
-                onPress={() => navigation.navigate('Historiques')}
-              >
-                <Text
-                style={[selectedTab === 'En cours' && styles.tabTextSelected]}
-                >En cours</Text>
-              </TouchableOpacity>
-          </View>
+                  <Text 
+                  style={[selectedTab === 'Nettoyage' && styles.tabTextSelected]}
+                  >Acceuil</Text>
+                </TouchableOpacity> 
+    
+                <TouchableOpacity
+                  style={[styles.tabButton, selectedTab === 'Boutique' && styles.activeTab]}
+                  onPress={() => setSelectedTab('Boutique')}
+                >
+                  <Text
+                  style={[selectedTab === 'Boutique' && styles.tabTextSelected]}
+                  >Nouveaux trajets</Text>
+                </TouchableOpacity>
+    
+                <TouchableOpacity
+                  style={[styles.tabButton, selectedTab === 'En cours' && styles.activeTab]}
+                  onPress={() => navigation.navigate('Historiques')}
+                >
+                  <Text
+                  style={[selectedTab === 'En cours' && styles.tabTextSelected]}
+                  >trajets En cours</Text>
+                </TouchableOpacity>
+            </View>
   
           {selectedTab === 'Nettoyage' && (
                   <View>
@@ -348,48 +312,51 @@ const HomeScreen = ({ navigation }) => {
                   <View style={styles.row1} >
                           <View style={styles.item}>
                               <Text  style={[styles.statText,{color:colors.primary,fontSize:14}]}>02</Text>
-                              <Text  style={styles.statText}>Nouvelles Commandes</Text>
+                              <Text  style={styles.statText}>Nouveaux trajets</Text>
                           </View>
         
                           <View style={styles.item}>
                               <Text  style={[styles.statText,{color:colors.primary,fontSize:14}]}>02</Text>  
-                              <Text  style={styles.statText} >Nouvelles Commandes</Text>
+                              <Text  style={styles.statText} >Nouveaux trajets</Text>
                           </View>
         
                           <View style={styles.item}>
                           <Text  style={[styles.statText,{color:colors.primary,fontSize:14}]}>02</Text>
-                              <Text  style={styles.statText}>Nouvelles Commandes</Text>
+                              <Text  style={styles.statText}>Nouveaux trajets</Text>
                           </View>
         
                           <View style={styles.item}>
                               <Text  style={[styles.statText,{color:colors.primary,fontSize:14}]}>02</Text>
-                              <Text  style={styles.statText}>Nouvelles Commandes</Text>
+                              <Text  style={styles.statText}>Nouveaux trajets</Text>
                           </View>
   
                   </View>
   
-                  <Text style={styles.subtitle}>Nouvelles commandes</Text>
-                
-                        <FlatList
-                            data={Encours}
-                            keyExtractor={(item) => item.id}
-                            renderItem={renderCard}
-                            // contentContainerStyle={styles.listContainer}
-                          />
+                  <Text style={styles.subtitle}>Nouveaux trajets</Text>
+                      <FlatList
+                          data={New}
+                          keyExtractor={(item) => item.id}
+                          renderItem={renderCard}
+                        />
+
                   
-                  <Text style={styles.subtitle}>Commandes en cours</Text>
-                    <FlatList
-                      data={New}
-                      keyExtractor={(item) => item.id}
-                      renderItem={renderCard}
-                    />
+                  <Text style={styles.subtitle}>trajets en cours</Text>
+                      <FlatList
+                                data={Encours}
+                                keyExtractor={(item) => item.id}
+                                renderItem={renderCard}
+                                // contentContainerStyle={styles.listContainer}
+                              />
                   </View>
           )}
           {selectedTab === 'Boutique' && (
             <View>
-             <Text>tttt</Text>
-             <Text>tttt</Text>
-             <Text>tttt</Text>
+                  <FlatList
+                      data={New2}
+                      keyExtractor={(item) => item.id}
+                      renderItem={renderCard}
+                      // contentContainerStyle={styles.listContainer}
+                    />
             </View>
           )} 
           </View>
@@ -479,6 +446,29 @@ const styles = StyleSheet.create({
   actionButtonProduct: {
     padding: 10,
   },
+  rowimage: {
+    flexDirection:'row',
+    justifyContent:'flex-start',
+    alignContent:'center',
+    alignItems:'center',
+
+  },
+  image2: {
+    width:width*0.2,
+    height:width*0.4,
+    borderRadius:12,
+    marginRight:8,
+    backgroundColor:"#fff",
+    justifyContent:'center',
+    alignContent:'center',
+    alignItems:'center',
+  },
+  Rightpart: {
+    width:width*0.6,
+    // justifyContent:'space-around',
+
+    alignItems:'baseline',
+  },
   card: {
     // width: width/2.3, 
     // height: width/2.1,
@@ -492,7 +482,15 @@ const styles = StyleSheet.create({
     borderColor:'#E6E5FD',
     position: 'relative',
   },
-  tt:{
+  tt1:{
+      width:width*0.6,
+      flexDirection:'row',
+      justifyContent:'space-between',
+      alignContent:'space-between',
+      alignItems:'center',
+      marginBottom:20
+    },
+    tt:{
       flexDirection:'row',
       justifyContent:'space-between',
       alignContent:'space-between',
@@ -558,7 +556,8 @@ const styles = StyleSheet.create({
   row:{
     flexDirection:'row',
     alignContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    marginBottom:10
   },
   tabContainer: {
     flexDirection: 'row',
